@@ -1,7 +1,5 @@
 # post [(link)](https://post-ga.herokuapp.com/)
 
-# InstaSnap [(link)](http://instasnap-ga.herokuapp.com)
-
 ## Authors
 - Ahmed Osman | [LinkedIn](https://www.linkedin.com/in/aosman-/) | [GitHub](https://github.com/a-osm)
 - Charlie Arboleda | [LinkedIn](https://www.linkedin.com/in/charliearboleda/) | [GitHub](https://github.com/Charliearboleda)
