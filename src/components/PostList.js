@@ -1,22 +1,18 @@
 import React, { Component } from 'react'
+import Post from './Post'
 
-export default class <COMPONENT NAME> extends Component {
-    state = {
-        null
-    }
-
+export default class PostList extends Component {
     render() {
         return (
             <div className="post-list" >
-                {this.state.posts.map(
+                {this.props.posts.map(
                     (post) => {
                         return (
                             <Post
                                 key={post.id}
                                 post={post}
-                                updatePost={this.props.updatePost}
+                                getPosts={this.props.getPosts}
                                 deletePost={this.props.deletePost}
-                                handleChange={this.props.handleChange}
                             />
                         )
                     }
