@@ -1,3 +1,4 @@
+
 import React, {useRef, useState} from 'react'
 import {Card, Button, Form, Alert} from 'react-bootstrap'
 import {useAuth} from '../contexts/AuthContext'
@@ -16,6 +17,7 @@ function handleSubmit(e) {
   if(passwordRef.current.value !== passwordConfirmRef.current.value){
     return setError('passwords do not match')
 }
+  
   try {
     setError('')
     setLoading(true)
@@ -24,9 +26,8 @@ function handleSubmit(e) {
     setError('Failed to create an account')
   }
   setLoading(false)
-
 }
-
+  
   return (
     <>
     <Card>
