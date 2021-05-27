@@ -35,7 +35,7 @@ export default class AddPost extends Component {
         return (
             <div>
                 <h2>Add a New Post</h2>
-                <form onSubmit={this.addPost}>
+                <form id="add-post-form" onSubmit={this.addPost}>
                     <label htmlFor="author">Author</label>
                     <input
                         type="number"
