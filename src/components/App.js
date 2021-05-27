@@ -114,6 +114,7 @@ class App extends Component {
                         (post) => {
                             return (
                                 <Posts
+                                    key={post.id}
                                     post={post}
                                     updatePost={this.updatePost}
                                     deletePost={this.deletePost}

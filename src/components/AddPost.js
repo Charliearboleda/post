@@ -29,6 +29,7 @@ export default class AddPost extends Component {
                     <input
                         type="number"
                         name="author"
+                        value={this.state.author}
                         onChange={this.handleChange}
                     />
                     <br />
@@ -36,6 +37,7 @@ export default class AddPost extends Component {
                     <input
                         type="text"
                         name="image"
+                        value={this.state.image}
                         onChange={this.handleChange}
                     />
                     <br />
@@ -43,6 +45,7 @@ export default class AddPost extends Component {
                     <input
                         type="text"
                         name="text"
+                        value={this.state.text}
                         onChange={this.handleChange}
                     />
                     <br />
