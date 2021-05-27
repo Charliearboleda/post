@@ -11,13 +11,13 @@ export default class AddPost extends Component {
 
     handleChange = (event) => {
         this.setState({
-            [event.target.id]: event.target.value,
+            [event.target.name]: event.target.value,
         })
     }
 
     handleSubmit = (event) => {
         event.preventDefault()
-        this.props.addPost(this.state)
+        this.props.addPost(this.state) // This doesn't exist in App
     }
 
     render() {
@@ -30,7 +30,6 @@ export default class AddPost extends Component {
                         type="number"
                         name="author"
                         onChange={this.handleChange}
-                        value={this.state.author}
                     />
                     <br />
                     <label htmlFor="image">Image</label>
@@ -38,7 +37,6 @@ export default class AddPost extends Component {
                         type="text"
                         name="image"
                         onChange={this.handleChange}
-                        value={this.state.image}
                     />
                     <br />
                     <label htmlFor="text">Share Something:</label>
@@ -46,7 +44,6 @@ export default class AddPost extends Component {
                         type="text"
                         name="text"
                         onChange={this.handleChange}
-                        value={this.state.text}
                     />
                     <br />
                     <input type="submit" value="Post-It" />
