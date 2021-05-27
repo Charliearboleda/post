@@ -5,6 +5,8 @@ import { Container } from "react-bootstrap"
 import { AuthProvider } from '../contexts/AuthContext'
 import AddPost from './AddPost'
 import PostList from './PostList'
+import {BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import Login from './Login'
 
 class App extends Component {
     state = {
@@ -81,7 +83,7 @@ class App extends Component {
     render = () => {
         return (
             <div>
-                {/*<AuthProvider>
+                {
                     <Container
                         className="d-flex align-itmes-center justify-content-center"
                         style={{minHeight: "100vh"}}
@@ -90,10 +92,18 @@ class App extends Component {
                             className="w-100"
                             style={{maxWidth: "400px"}}
                         >
-                            <Signup />
+                        <Router>
+                            <AuthProvider>
+                            <Switch>
+                            <Route path="/signup" component={Signup} />
+                            <Route path="/login" component={Login} />
+                            </Switch>
+                            </AuthProvider>
+                        </Router>
+
                         </div>
                     </Container>
-                </AuthProvider>*/}
+                }
 
                 <AddPost
                     addPost={this.addPost}
