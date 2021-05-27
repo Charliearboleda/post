@@ -11,6 +11,15 @@ class App extends Component {
         posts: []
     }
 
+    addPost = (posts) => {
+      axios
+          .post('https://post-ga-api.herokuapp.com/api/posts', posts)
+          .then(
+            (response) => { this.getPosts()
+            }
+          )
+    }
+
     getPosts = () => {
         axios
             .get(
@@ -97,7 +106,7 @@ class App extends Component {
                 </AuthProvider>
 
                 <AddPost
-                    AddPost={this.AddPost}
+                    addPost={this.addPost}
                 />
 
                 <div className="allPosts" >

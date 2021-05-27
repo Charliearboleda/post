@@ -42,7 +42,7 @@ export default function Signup() {
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" ref={passwordRef} required />
                         </Form.Group>
-                        <Form.Group id="password confirm"> // =================== One word? Two words?? =========================
+                        <Form.Group id="password confirm"> {/* =================== One word? Two words?? ========================= */}
                             <Form.Label>Retype Password</Form.Label>
                             <Form.Control type="password" ref={passwordConfirmRef} required />
                         </Form.Group>
