@@ -4,7 +4,7 @@ import Signup from './Signup'
 import { Container } from "react-bootstrap"
 import { AuthProvider } from '../contexts/AuthContext'
 import AddPost from './AddPost'
-import Posts from './Posts'
+import Post from './Post'
 
 class App extends Component {
     state = {
@@ -109,20 +109,11 @@ class App extends Component {
                     addPost={this.addPost}
                 />
 
-                <div className="allPosts" >
-                    {this.state.posts.map(
-                        (post) => {
-                            return (
-                                <Posts
-                                    post={post}
-                                    updatePost={this.updatePost}
-                                    deletePost={this.deletePost}
-                                    handleChange={this.handleChange}
-                                />
-                            )
-                        }
-                    )}
-                </div>
+                <PostList
+                    updatePost={this.updatePost}
+                    deletePost={this.deletePost}
+                    handleChange={this.handleChange}
+                />
             </div>
         )
     }
