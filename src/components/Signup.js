@@ -14,14 +14,14 @@ export default function Signup() {
     function handleSubmit (e) {
         e.preventDefault()
         if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-            return setError('Username and password combination do not match')
+            return setError('Passwords do not match')
         }
         try {
             setError('')
             setLoading(true)
             signup(emailRef.current.value, passwordRef.current.value)
         } catch {
-            setError('Failed to create an account')
+            setError('Failed to create an account. Please try again')
         }
         setLoading(false)
     } // handleSubmit END =====
