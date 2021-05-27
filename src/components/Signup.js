@@ -17,10 +17,6 @@ function handleSubmit(e) {
   if(passwordRef.current.value !== passwordConfirmRef.current.value){
     return setError('passwords do not match')
 }
-<<<<<<< HEAD
-=======
-  
->>>>>>> 891936cdb30eb7b404f92aa00a597a3d47ba66b2
   try {
     setError('')
     setLoading(true)
@@ -29,14 +25,9 @@ function handleSubmit(e) {
     setError('Failed to create an account')
   }
   setLoading(false)
-<<<<<<< HEAD
 
 }
 
-=======
-}
-  
->>>>>>> 891936cdb30eb7b404f92aa00a597a3d47ba66b2
   return (
     <>
     <Card>
