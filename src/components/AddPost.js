@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 
 export default class AddPost extends Component {
     state = {
@@ -15,16 +16,26 @@ export default class AddPost extends Component {
         })
     }
 
-    handleSubmit = (event) => {
+    addPost = (event) => {
         event.preventDefault()
-        this.props.addPost(this.state) // This doesn't exist in App
+        axios
+            .post('https://post-ga-api.herokuapp.com/api/posts', this.state)
+            .then(
+                (response) => {
+                    this.props.getPosts()
+                }
+            )
+            .catch((err) => {
+                console.log(err);
+            })
+        // AXIOS END =====
     }
 
     render() {
         return (
             <div>
                 <h2>Add a New Post</h2>
-                <form onSubmit={this.handleSubmit}>
+                <form id="add-post-form" onSubmit={this.addPost}>
                     <label htmlFor="author">Author</label>
                     <input
                         type="number"

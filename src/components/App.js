@@ -4,20 +4,13 @@ import Signup from './Signup'
 import { Container } from "react-bootstrap"
 import { AuthProvider } from '../contexts/AuthContext'
 import AddPost from './AddPost'
-import Posts from './Posts'
+import PostList from './PostList'
+import {BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import Login from './Login'
 
 class App extends Component {
     state = {
         posts: []
-    }
-
-    addPost = (posts) => {
-      axios
-          .post('https://post-ga-api.herokuapp.com/api/posts', posts)
-          .then(
-            (response) => { this.getPosts()
-            }
-          )
     }
 
     getPosts = () => {
@@ -51,26 +44,25 @@ class App extends Component {
         // AXIOS END =====
     }
 
-    updatePost = (e) => {
-        e.preventDefault()
-        axios
-            .put(
-                'https://post-ga-api.herokuapp.com/api/posts/' + e.target.name,
-                this.state
-            ).then(
-                (response) => {
-                    this.getPosts()
-                    this.setState({
-                        author : '',
-                        image: '',
-                        text: '',
-                        liked_by : [0],
-                        comments: [0]
-                    })
-                }
-            )
-        // AXIOS END =====
-    }
+    // updatePost = (postId, stateObject) => {
+    //     axios
+    //         .put(
+    //             'https://post-ga-api.herokuapp.com/api/posts/' + postId,
+    //             stateObject
+    //         ).then(
+    //             (response) => {
+    //                 this.getPosts()
+    //                 this.setState({
+    //                     author : '',
+    //                     image: '',
+    //                     text: '',
+    //                     liked_by : [0],
+    //                     comments: [0]
+    //                 })
+    //             }
+    //         )
+    //     // AXIOS END =====
+    // }
 
     deletePost = (e) => {
         axios
@@ -91,7 +83,7 @@ class App extends Component {
     render = () => {
         return (
             <div>
-                <AuthProvider>
+                {
                     <Container
                         className="d-flex align-itmes-center justify-content-center"
                         style={{minHeight: "100vh"}}
@@ -100,30 +92,30 @@ class App extends Component {
                             className="w-100"
                             style={{maxWidth: "400px"}}
                         >
-                            <Signup />
+                        <Router>
+                            <AuthProvider>
+                            <Switch>
+                            <Route path="/signup" component={Signup} />
+                            <Route path="/login" component={Login} />
+                            </Switch>
+                            </AuthProvider>
+                        </Router>
+
                         </div>
                     </Container>
-                </AuthProvider>
+                }
 
                 <AddPost
                     addPost={this.addPost}
-                />
+                    getPosts={this.getPosts}
+                ></AddPost>
 
-                <div className="allPosts" >
-                    {this.state.posts.map(
-                        (post) => {
-                            return (
-                                <Posts
-                                    key={post.id}
-                                    post={post}
-                                    updatePost={this.updatePost}
-                                    deletePost={this.deletePost}
-                                    handleChange={this.handleChange}
-                                />
-                            )
-                        }
-                    )}
-                </div>
+                <PostList
+                    posts={this.state.posts}
+                    getPosts={this.getPosts}
+                    deletePost={this.deletePost}
+                    handleChange={this.handleChange}
+                ></PostList>
             </div>
         )
     }
