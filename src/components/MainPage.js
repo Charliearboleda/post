@@ -13,7 +13,7 @@ export default function MainPage() {
     async function handleLogout() {
         setError("")
 
-        try{
+        try {
             await logout()
             history.push('/login')
         } catch {
