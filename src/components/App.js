@@ -48,26 +48,6 @@ class App extends Component {
         // AXIOS END =====
     }
 
-    // updatePost = (postId, stateObject) => {
-    //     axios
-    //         .put(
-    //             'https://post-ga-api.herokuapp.com/api/posts/' + postId,
-    //             stateObject
-    //         ).then(
-    //             (response) => {
-    //                 this.getPosts()
-    //                 this.setState({
-    //                     author : '',
-    //                     image: '',
-    //                     text: '',
-    //                     liked_by : [0],
-    //                     comments: [0]
-    //                 })
-    //             }
-    //         )
-    //     // AXIOS END =====
-    // }
-
     deletePost = (e) => {
         axios
             .delete(
