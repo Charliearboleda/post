@@ -2,6 +2,7 @@
 import React, {useRef, useState} from 'react'
 import {Card, Button, Form, Alert} from 'react-bootstrap'
 import {useAuth} from '../contexts/AuthContext'
+import {Link, useHistory} from 'react-router-dom'
 
 export default function Signup() {
     const emailRef = useRef()
@@ -10,6 +11,7 @@ export default function Signup() {
     const {signup} = useAuth()
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
+    const history = useHistory()
 
     function handleSubmit (e) {
         e.preventDefault()
@@ -20,6 +22,7 @@ export default function Signup() {
             setError('')
             setLoading(true)
             signup(emailRef.current.value, passwordRef.current.value)
+            history.push('/')
         } catch {
             setError('Failed to create an account. Please try again')
         }
@@ -27,21 +30,6 @@ export default function Signup() {
     } // handleSubmit END =====
 
 
-async function handleSubmit(e) {
-  e.preventDefault()
-  if(passwordRef.current.value !== passwordConfirmRef.current.value){
-    return setError('passwords do not match')
-}
-  try {
-    setError('')
-    setLoading(true)
-    await signup(emailRef.current.value, passwordRef.current.value)
-  } catch {
-    setError('Failed to create an account')
-  }
-  setLoading(false)
-
-}
     return (
         <>
             <Card>
@@ -67,7 +55,7 @@ async function handleSubmit(e) {
                 </Card.Body>
             </Card>
             <div className= "w-100 text-center mt-s">
-                Already have an account? Log In
+                Already have an account? <Link to="/login">Log In</Link>
             </div>
         </>
     )

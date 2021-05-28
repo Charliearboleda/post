@@ -7,6 +7,7 @@ import AddPost from './AddPost'
 import PostList from './PostList'
 import {BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Login from './Login'
+import MainPage from './MainPage'
 
 class App extends Component {
     state = {
@@ -97,6 +98,7 @@ class App extends Component {
                             <Switch>
                             <Route path="/signup" component={Signup} />
                             <Route path="/login" component={Login} />
+                            <Route path="/" component={MainPage} />
                             </Switch>
                             </AuthProvider>
                         </Router>
