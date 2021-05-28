@@ -10,6 +10,7 @@ import Login from './Login'
 import MainPage from './MainPage'
 import PrivateRoute from './PrivateRoute'
 import ForgotPassword from './ForgotPassword'
+import UpdateProfile from './UpdateProfile'
 
 class App extends Component {
     state = {
@@ -101,6 +102,7 @@ class App extends Component {
                             <Route path="/signup" component={Signup} />
                             <Route path="/login" component={Login} />
                             <PrivateRoute exact path="/" component={MainPage} />
+                            <PrivateRoute path="/update-profile" component={UpdateProfile} />
                             <Route path="/forgot-password" component={ForgotPassword} />
                             </Switch>
                             </AuthProvider>
