@@ -55,7 +55,7 @@ export default function UpdateProfile() {
                         <Form.Group id="password">
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" ref={passwordRef}
-                            placeHolder="Leave blank to keep the same" />
+                            placeholder="Leave blank to keep the same" />
                         </Form.Group>
                         <Form.Group id="password-confirm"> {/* =================== One word? Two words?? ========================= */}
                             <Form.Label>Retype Password</Form.Label>

@@ -1,16 +1,16 @@
 
-import React, {useRef, useState} from 'react'
+import React, {useRef, useState, useEffect} from 'react'
 import {Card, Button, Form, Alert} from 'react-bootstrap'
 import {useAuth} from '../contexts/AuthContext'
 import {Link, useHistory} from 'react-router-dom'
 
 
 export default function Login() {
+    const [error, setError] = useState('')
+    const [loading, setLoading] = useState(false)
     const emailRef = useRef()
     const passwordRef = useRef()
     const {login} = useAuth()
-    const [error, setError] = useState('')
-    const [loading, setLoading] = useState(false)
     const history = useHistory()
 
     async function handleSubmit (e) {
@@ -26,7 +26,6 @@ export default function Login() {
         }
         setLoading(false)
     } // handleSubmit END =====
-
 
     return (
         <>
