@@ -22,7 +22,7 @@ export default function AddPost(props) {
     const addPost = (event) => {
         event.preventDefault()
         axios
-            .post('https://post-ga-api.herokuapp.com/api/posts', this.state)
+            .post('https://post-ga-api.herokuapp.com/api/posts', state)
             .then(
                 (response) => {
                     props.getPosts()
