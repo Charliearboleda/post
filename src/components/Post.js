@@ -1,78 +1,19 @@
-import React, { Component } from 'react'
-import axios from 'axios'
+import EditPost from './EditPost'
 
-export default class Post extends Component {
-    state = {
-        author: this.props.post.author,
-        image: this.props.post.image,
-        text: this.props.post.text,
-        liked_by: this.props.post.liked_by,
-        comments: this.props.post.comments
-    }
-
-    handleChange = (event) => {
-        this.setState({
-            [event.target.name]: event.target.value
-        })
-    }
-
-    updatePost = (event) => {
-        event.preventDefault()
-        axios
-            .put(
-                'https://post-ga-api.herokuapp.com/api/posts/' + this.props.post.id,
-                this.state
-            ).then(
-                (response) => {
-                    this.props.getPosts()
-                }
-            )
-        // AXIOS END =====
-    }
-
-    render() {
-        return (
-            <div key={this.props.post.id}>
-                <h3>Author: {this.props.post.author}</h3>
-                <img src={this.props.post.image} alt={this.props.post.text} />
-                <h3>Post: {this.props.post.text}</h3>
-                <details>
-                    <summary>Edit Post</summary>
-                    <form
-                        name={this.props.post.id}
-                        onSubmit={this.updatePost}
-                    >
-                        <label htmlFor="author">Author</label><br />
-                        <input
-                            type="number"
-                            name="author"
-                            onChange={this.handleChange}
-                        /><br />
-                        <label htmlFor="image">Image</label><br />
-                        <input
-                            type="text"
-                            name="image"
-                            onChange={this.handleChange}
-                        /><br />
-                        <label htmlFor="text">Text</label><br />
-                        <input
-                            type="text"
-                            name="text"
-                            onChange={this.handleChange}
-                        /><br />
-                        <input
-                            type="hidden"
-                            name="liked_by"
-                        />
-                        <input
-                            type="hidden"
-                            name="comments"
-                        />
-                        <input type="submit" value="Update Post" />
-                    </form>
-                </details>
-                <button value={this.props.post.id} onClick={this.props.deletePost}>DELETE</button>
-            </div>
-        )
-    }
+export default function Post(props) {
+    return (
+        <div key={props.post.id}>
+            <h3>Author: {props.post.author}</h3>
+            <img src={props.post.image} alt={props.post.text} />
+            <h3>Post: {props.post.text}</h3>
+            <details>
+                <summary>Edit Post</summary>
+                <EditPost
+                    post={props.post}
+                    getPosts={props.getPosts}
+                ></EditPost>
+            </details>
+            <button value={props.post.id} onClick={props.deletePost}>DELETE</button>
+        </div>
+    )
 }

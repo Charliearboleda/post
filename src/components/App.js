@@ -1,114 +1,109 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Signup from './Signup'
 import { Container } from "react-bootstrap"
 import { AuthProvider } from '../contexts/AuthContext'
 import AddPost from './AddPost'
 import PostList from './PostList'
+import {BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import Login from './Login'
+import MainPage from './MainPage'
+import PrivateRoute from './PrivateRoute'
+import ForgotPassword from './ForgotPassword'
+import UpdateProfile from './UpdateProfile'
 
-class App extends Component {
-    state = {
-        posts: []
-    }
+export default function App() {
+    const [state, setState] = useState(
+        {
+            posts: []
+        }
+    )
 
-    getPosts = () => {
+    const getPosts = () => {
         axios
             .get(
                 'https://post-ga-api.herokuapp.com/api/posts'
             ).then(
-                (response) => this.setState({posts: response.data}),
+                (response) => {
+                    setState({ ...state, posts: response.data })
+                },
                 (err) => console.log(err)
             )
         // AXIOS END =====
     }
 
-    handleChange = (e) => {
+    const handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
         })
     }
 
-    handleSubmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault()
         axios
             .post(
                 'https://post-ga-api.herokuapp.com/api/posts',
-                this.state
+                state
             ).then(
                 (response) => {
-                    this.getPosts()
+                    getPosts()
                 }
             )
         // AXIOS END =====
     }
 
-    // updatePost = (postId, stateObject) => {
-    //     axios
-    //         .put(
-    //             'https://post-ga-api.herokuapp.com/api/posts/' + postId,
-    //             stateObject
-    //         ).then(
-    //             (response) => {
-    //                 this.getPosts()
-    //                 this.setState({
-    //                     author : '',
-    //                     image: '',
-    //                     text: '',
-    //                     liked_by : [0],
-    //                     comments: [0]
-    //                 })
-    //             }
-    //         )
-    //     // AXIOS END =====
-    // }
-
-    deletePost = (e) => {
+    const deletePost = (e) => {
         axios
             .delete(
                 'https://post-ga-api.herokuapp.com/api/posts/' + e.target.value
             ).then(
                 (response) => {
-                    this.getPosts()
+                    getPosts()
                 }
             )
         // AXIOS END =====
     }
 
-    componentDidMount = () => {
-        this.getPosts()
-    }
+    useEffect(() => {
+        getPosts()
+    })
 
-    render = () => {
-        return (
-            <div>
-                {/*<AuthProvider>
-                    <Container
-                        className="d-flex align-itmes-center justify-content-center"
-                        style={{minHeight: "100vh"}}
-                    >
-                        <div
-                            className="w-100"
-                            style={{maxWidth: "400px"}}
-                        >
-                            <Signup />
-                        </div>
-                    </Container>
-                </AuthProvider>*/}
+    return (
+        <div>
+            <Container
+                className="d-flex align-itmes-center justify-content-center"
+                style={{minHeight: "100vh"}}
+            >
+                <div
+                    className="w-100"
+                    style={{maxWidth: "400px"}}
+                >
+                <Router>
+                    <AuthProvider>
+                    <Switch>
+                    <Route path="/signup" component={Signup} />
+                    <Route path="/login" component={Login} />
+                    <PrivateRoute exact path="/" component={MainPage} />
+                    <PrivateRoute path="/update-profile" component={UpdateProfile} />
+                    <Route path="/forgot-password" component={ForgotPassword} />
+                    </Switch>
+                    </AuthProvider>
+                </Router>
 
-                <AddPost
-                    addPost={this.addPost}
-                    getPosts={this.getPosts}
-                ></AddPost>
+                </div>
+            </Container>
 
-                <PostList
-                    posts={this.state.posts}
-                    getPosts={this.getPosts}
-                    deletePost={this.deletePost}
-                    handleChange={this.handleChange}
-                ></PostList>
-            </div>
-        )
-    }
+            <AddPost
+                getPosts={getPosts}
+            ></AddPost>
+
+            <PostList
+                posts={state.posts}
+                getPosts={getPosts}
+                deletePost={deletePost}
+                handleChange={handleChange}
+            ></PostList>
+        </div>
+    )
+
 } // App END =======
-
-export default App

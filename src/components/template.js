@@ -1,13 +1,10 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 
-export default class <COMPONENT NAME> extends Component {
-    state = {
-        null
-    }
+export default <COMPONENT NAME> () {
+    const [state, setState] = useState({ key: 'value' })
 
-    render() {
-        return (
-            null
-        )
-    }
+    return (
+        <>
+        </>
+    )
 }
