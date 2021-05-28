@@ -5,6 +5,7 @@ import {Link, useHistory} from 'react-router-dom'
 import PrivateRoute from './PrivateRoute'
 
 
+
 export default function MainPage() {
     const [error, setError] = useState("")
     const {currentUser, logout} = useAuth()
@@ -35,6 +36,7 @@ export default function MainPage() {
         <div className="w-100 text-center mt-2">
         <Button variant="link" onClick={handleLogout}>Log Out</Button>
         </div>
+
         </>
 
     )
