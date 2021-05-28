@@ -67,30 +67,28 @@ class App extends Component {
     render = () => {
         return (
             <div>
-                {
-                    <Container
-                        className="d-flex align-itmes-center justify-content-center"
-                        style={{minHeight: "100vh"}}
+                <Container
+                    className="d-flex align-itmes-center justify-content-center"
+                    style={{minHeight: "100vh"}}
+                >
+                    <div
+                        className="w-100"
+                        style={{maxWidth: "400px"}}
                     >
-                        <div
-                            className="w-100"
-                            style={{maxWidth: "400px"}}
-                        >
-                        <Router>
-                            <AuthProvider>
-                            <Switch>
-                            <Route path="/signup" component={Signup} />
-                            <Route path="/login" component={Login} />
-                            <PrivateRoute exact path="/" component={MainPage} />
-                            <PrivateRoute path="/update-profile" component={UpdateProfile} />
-                            <Route path="/forgot-password" component={ForgotPassword} />
-                            </Switch>
-                            </AuthProvider>
-                        </Router>
+                    <Router>
+                        <AuthProvider>
+                        <Switch>
+                        <Route path="/signup" component={Signup} />
+                        <Route path="/login" component={Login} />
+                        <PrivateRoute exact path="/" component={MainPage} />
+                        <PrivateRoute path="/update-profile" component={UpdateProfile} />
+                        <Route path="/forgot-password" component={ForgotPassword} />
+                        </Switch>
+                        </AuthProvider>
+                    </Router>
 
-                        </div>
-                    </Container>
-                }
+                    </div>
+                </Container>
 
                 <AddPost
                     addPost={this.addPost}
