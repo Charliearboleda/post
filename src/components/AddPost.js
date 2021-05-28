@@ -1,4 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
+import { render } from 'react-dom'
+import { firebase } from '../firebase'
 import axios from 'axios'
 
 export default class AddPost extends Component {
@@ -31,11 +33,36 @@ export default class AddPost extends Component {
         // AXIOS END =====
     }
 
+
+    addImage = (event) => {
+        this.uploadImage(event.target.files)
+    }
+
+    uploadImage = (files) => {
+        const formData = new FormData()
+        console.log(files[0])
+    }
+
     render() {
         return (
             <div>
+                <div>
+                    <form onSubmit={this.uploadImage}>
+                        <input
+                            type="file"
+                            onChange={this.addImage}
+                        />
+                        <input
+                            type="submit"
+                            value="upload image"
+                        />
+                    </form>
+                    <img></img>
+                </div>
+
+
                 <h2>Add a New Post</h2>
-                <form id="add-post-form" onSubmit={this.addPost}>
+                <form onSubmit={this.addPost}>
                     <label htmlFor="author">Author</label>
                     <input
                         type="number"
