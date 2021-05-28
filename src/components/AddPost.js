@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react'
+import React, { Component } from 'react'
 import axios from 'axios'
 
 export default class AddPost extends Component {
@@ -31,37 +31,11 @@ export default class AddPost extends Component {
         // AXIOS END =====
     }
 
-
-    addImage = (event) => {
-        this.uploadImage(event.target.files)
-    }
-
-    uploadImage = (files) => {
-        const formData = new FormData()
-        formData.append( "file", files[0])
-        formData.append("upload_preset", "vutyx5hg")
-
-        axios.post("https://api.cloudinary.com/v1_1/aocloud/image/upload", formData).then((response) => {
-            console.log(response)
-        })
-    }
-
     render() {
         return (
             <div>
-                <form onSubmit={this.uploadImage}>
-                    <input
-                        type="file"
-                        onChange={this.addImage}
-                    />
-                    <input
-                        type="submit"
-                        value="upload image"
-                    />
-                </form>
-
                 <h2>Add a New Post</h2>
-                <form onSubmit={this.addPost}>
+                <form id="add-post-form" onSubmit={this.addPost}>
                     <label htmlFor="author">Author</label>
                     <input
                         type="number"
