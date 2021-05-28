@@ -1,28 +1,31 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import axios from 'axios'
 
-export default class AddPost extends Component {
-    state = {
-        author : '',
+export default function AddPost(props) {
+    const [state, setState] = useState({
+        author: '',
         image: '',
         text: '',
-        liked_by : [0],
-        comments: [0],
+        liked_by: [0],
+        comments: [0]
+    })
+
+    const handleChange = (event) => {
+        setState(
+            {
+                ...state,
+                [event.target.name]: event.target.value
+            }
+        )
     }
 
-    handleChange = (event) => {
-        this.setState({
-            [event.target.name]: event.target.value,
-        })
-    }
-
-    addPost = (event) => {
+    const addPost = (event) => {
         event.preventDefault()
         axios
-            .post('https://post-ga-api.herokuapp.com/api/posts', this.state)
+            .post('https://post-ga-api.herokuapp.com/api/posts', state)
             .then(
                 (response) => {
-                    this.props.getPosts()
+                    props.getPosts()
                 }
             )
             .catch((err) => {
@@ -31,38 +34,36 @@ export default class AddPost extends Component {
         // AXIOS END =====
     }
 
-    render() {
-        return (
-            <div>
-                <h2>Add a New Post</h2>
-                <form id="add-post-form" onSubmit={this.addPost}>
-                    <label htmlFor="author">Author</label>
-                    <input
-                        type="number"
-                        name="author"
-                        value={this.state.author}
-                        onChange={this.handleChange}
-                    />
-                    <br />
-                    <label htmlFor="image">Image</label>
-                    <input
-                        type="text"
-                        name="image"
-                        value={this.state.image}
-                        onChange={this.handleChange}
-                    />
-                    <br />
-                    <label htmlFor="text">Share Something:</label>
-                    <input
-                        type="text"
-                        name="text"
-                        value={this.state.text}
-                        onChange={this.handleChange}
-                    />
-                    <br />
-                    <input type="submit" value="Post-It" />
-                </form>
-            </div>
-        )
-    }
+    return (
+        <div>
+            <h2>Add a New Post</h2>
+            <form id="add-post-form" onSubmit={addPost}>
+                <label htmlFor="author">Author</label>
+                <input
+                    type="number"
+                    name="author"
+                    value={state.author}
+                    onChange={handleChange}
+                />
+                <br />
+                <label htmlFor="image">Image</label>
+                <input
+                    type="text"
+                    name="image"
+                    value={state.image}
+                    onChange={handleChange}
+                />
+                <br />
+                <label htmlFor="text">Share Something:</label>
+                <input
+                    type="text"
+                    name="text"
+                    value={state.text}
+                    onChange={handleChange}
+                />
+                <br />
+                <input type="submit" value="Post-It" />
+            </form>
+        </div>
+    )
 }
