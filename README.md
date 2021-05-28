@@ -38,12 +38,17 @@
 
 ## Technologies Used
 #### Frontend
-- React \n create-react-app \n
+- React
+- create-react-app
 
 
 #### Backend
+- Django
+- Firebase
 
 #### Project management, hosting, and deployment
+- Heroku
+
 
 #### Misc
 
