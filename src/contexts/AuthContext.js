@@ -24,7 +24,19 @@ export function AuthProvider({children}) {
  }
 
  function logout(){
-        return auth.signOut()
+    return auth.signOut()
+ }
+
+ function resetPassword(email) {
+    return auth.sendPasswordResetEmail(email)
+ }
+
+ function updateEmail(email){
+     return currentUser.updateEmail(email)
+ }
+
+ function updatePassword(password){
+     return currentUser.updatePassword(password)
  }
 
  useEffect(()=>{
@@ -45,6 +57,9 @@ const value = {
   currentUser,
   login,
   logout,
+  resetPassword,
+  updateEmail,
+  updatePassword,
   signup
 
 }
