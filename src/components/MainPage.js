@@ -1,9 +1,11 @@
 import React, {useState} from 'react'
 import {Card, Button, Alert} from 'react-bootstrap'
+import {useAuth} from '../contexts/AuthContext'
 
 
 export default function MainPage() {
     const [error, setError] = useState("")
+    const {currentUser} = useAuth()
 
     function handleLogout() {
 
@@ -16,7 +18,7 @@ export default function MainPage() {
         <Card.Body>
             <h2 className="text-center mb-4">Profile</h2>
             {error && <Alert variant="danger">{error}</Alert>}
-            <h2 className="text-center mb-4">Profile</h2>
+            {currentUser.email}
         </Card.Body>
         </Card>
         <div className="w-100 text-center mt-2">
