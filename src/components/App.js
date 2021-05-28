@@ -9,6 +9,7 @@ import {BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Login from './Login'
 import MainPage from './MainPage'
 import PrivateRoute from './PrivateRoute'
+import ForgotPassword from './ForgotPassword'
 
 class App extends Component {
     state = {
@@ -99,7 +100,8 @@ class App extends Component {
                             <Switch>
                             <Route path="/signup" component={Signup} />
                             <Route path="/login" component={Login} />
-                            <PrivateRoute path="/" component={MainPage} />
+                            <PrivateRoute exact path="/" component={MainPage} />
+                            <Route path="/forgot-password" component={ForgotPassword} />
                             </Switch>
                             </AuthProvider>
                         </Router>
