@@ -39,15 +39,18 @@
 ## Technologies Used
 #### Frontend
 - React
-- create-react-app
+- React Router (view management)
+- React Context (state management)
 
 
 #### Backend
 - Django
-- Firebase
+- Firebase (authentication, photo uploads)
 
 #### Project management, hosting, and deployment
-- Heroku
+- [GitHub](https://github.com) (version control)
+- [Trello](https://trello.com) (project management)
+- [Heroku](https://heroku.com) with Heroku Postgres (hosting/deployment)
 
 
 #### Misc
