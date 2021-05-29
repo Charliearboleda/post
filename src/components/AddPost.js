@@ -4,13 +4,15 @@ import axios from 'axios'
 
 export default function AddPost(props) {
     const [imageSelected, setImageSelected] = useState("")
-    const [state, setState] = useState({
-        author: '',
-        image: '',
-        text: '',
-        liked_by: [0],
-        comments: [0]
-    })
+    const [state, setState] = useState(
+        {
+            author: '',
+            image: '',
+            text: '',
+            liked_by: [0],
+            comments: [0]
+        }
+    )
 
     const handleChange = (event) => {
         setState(
@@ -58,23 +60,6 @@ export default function AddPost(props) {
         uploadImage()
     }
 
-
-    // const uploadImage = (event) => {
-    //     event.preventDefault()
-    //     const formData = new FormData()
-    //     formData.append("file", imageSelected)
-    //     formData.append("upload_preset", "vutyx5hg")
-    //     axios
-    //         .post(
-    //             "https://api.cloudinary.com/v1_1/aocloud/image/upload",
-    //             formData)
-    //         .then((response) => {
-    //             setState({...state, image: response.data.secure_url})
-    //         })
-    //     // AXIOS END =====
-    // }
-
-
     return (
         <div>
             <h2>Add a New Post</h2>
@@ -87,18 +72,12 @@ export default function AddPost(props) {
                     onChange={handleChange}
                 /><br /><br />
 
-                {/* <form onSubmit={uploadImage}> IMAGE UPLOAD FORM */}
-                    <input
-                        type="file"
-                        onChange={(event) => {
-                            setImageSelected(event.target.files[0])
-                        }}
-                    />
-                    {/* <input
-                        type="submit"
-                        value="upload image"
-                    /><br />
-                </form><br /><br */}
+                <input
+                    type="file"
+                    onChange={(event) => {
+                        setImageSelected(event.target.files[0])
+                    }}
+                />
 
                 <label htmlFor="text">Share Something:</label>
                 <input
@@ -111,12 +90,6 @@ export default function AddPost(props) {
             </form>
         </div>
     )
-
-
-
-
-
-
 
     // return (
     //     <div>
