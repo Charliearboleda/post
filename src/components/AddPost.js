@@ -1,22 +1,25 @@
+// DEPENDENCIES
 import React, { useState } from 'react'
 import axios from 'axios'
 // import { Image } from 'cloudinary-react'
 
 export default function AddPost(props) {
-    const [imageSelected, setImageSelected] = useState("")
-    const [state, setState] = useState({
-        author: '',
-        image: '',
-        text: '',
-        liked_by: [0],
-        comments: [0]
-    })
+    const [ imageSelected, setImageSelected ] = useState("")
+    const [ state, setState ] = useState(
+        {
+            author: '',
+            image: '',
+            text: '',
+            liked_by: [0],
+            comments: [0]
+        }
+    )
 
     const handleChange = (event) => {
         setState(
             {
                 ...state,
-                [event.target.name]: event.target.value
+                [ event.target.name ]: event.target.value
             }
         )
     }
@@ -45,7 +48,12 @@ export default function AddPost(props) {
                 formData
             ).then(
                 (response) => {
-                    setState({...state, image: response.data.secure_url})
+                    setState(
+                        {
+                            ...state,
+                            image: response.data.secure_url
+                        }
+                    )
                 }
             ).then( // for some reason, we can't get postPost() to trigger only AFTER we get a response back from cloudinary
                 postPost()
@@ -58,65 +66,36 @@ export default function AddPost(props) {
         uploadImage()
     }
 
-
-    // const uploadImage = (event) => {
-    //     event.preventDefault()
-    //     const formData = new FormData()
-    //     formData.append("file", imageSelected)
-    //     formData.append("upload_preset", "vutyx5hg")
-    //     axios
-    //         .post(
-    //             "https://api.cloudinary.com/v1_1/aocloud/image/upload",
-    //             formData)
-    //         .then((response) => {
-    //             setState({...state, image: response.data.secure_url})
-    //         })
-    //     // AXIOS END =====
-    // }
-
-
     return (
         <div>
             <h2>Add a New Post</h2>
-            <form id="add-post-form" onSubmit={addPost}>
+            <form id="add-post-form" onSubmit={ addPost }>
                 <label htmlFor="author">Author</label>
                 <input
                     type="number"
                     name="author"
-                    value={state.author}
-                    onChange={handleChange}
+                    value={ state.author }
+                    onChange={ handleChange }
                 /><br /><br />
 
-                {/* <form onSubmit={uploadImage}> IMAGE UPLOAD FORM */}
-                    <input
-                        type="file"
-                        onChange={(event) => {
-                            setImageSelected(event.target.files[0])
-                        }}
-                    />
-                    {/* <input
-                        type="submit"
-                        value="upload image"
-                    /><br />
-                </form><br /><br */}
+                <input
+                    type="file"
+                    onChange={(event) => {
+                        setImageSelected(event.target.files[0])
+                    }}
+                />
 
                 <label htmlFor="text">Share Something:</label>
                 <input
                     type="text"
                     name="text"
-                    value={state.text}
-                    onChange={handleChange}
+                    value={ state.text }
+                    onChange={ handleChange }
                 /><br /><br />
                 <input type="submit" value="Post-It" />
             </form>
         </div>
     )
-
-
-
-
-
-
 
     // return (
     //     <div>

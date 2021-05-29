@@ -9,10 +9,10 @@ export default function PostList(props) {
                     return (
                         <>
                         <Post
-                            key={post.id}
-                            post={post}
-                            getPosts={props.getPosts}
-                            deletePost={props.deletePost}
+                            key={ post.id }
+                            post={ post }
+                            getPosts={ props.getPosts }
+                            deletePost={ props.deletePost }
                         />
                         <Comment />
                         </>
