@@ -4,8 +4,8 @@ import axios from 'axios'
 // import { Image } from 'cloudinary-react'
 
 export default function AddPost(props) {
-    const [imageSelected, setImageSelected] = useState("")
-    const [state, setState] = useState(
+    const [ imageSelected, setImageSelected ] = useState("")
+    const [ state, setState ] = useState(
         {
             author: '',
             image: '',
@@ -19,7 +19,7 @@ export default function AddPost(props) {
         setState(
             {
                 ...state,
-                [event.target.name]: event.target.value
+                [ event.target.name ]: event.target.value
             }
         )
     }
@@ -48,7 +48,12 @@ export default function AddPost(props) {
                 formData
             ).then(
                 (response) => {
-                    setState({...state, image: response.data.secure_url})
+                    setState(
+                        {
+                            ...state,
+                            image: response.data.secure_url
+                        }
+                    )
                 }
             ).then( // for some reason, we can't get postPost() to trigger only AFTER we get a response back from cloudinary
                 postPost()
@@ -64,13 +69,13 @@ export default function AddPost(props) {
     return (
         <div>
             <h2>Add a New Post</h2>
-            <form id="add-post-form" onSubmit={addPost}>
+            <form id="add-post-form" onSubmit={ addPost }>
                 <label htmlFor="author">Author</label>
                 <input
                     type="number"
                     name="author"
-                    value={state.author}
-                    onChange={handleChange}
+                    value={ state.author }
+                    onChange={ handleChange }
                 /><br /><br />
 
                 <input
@@ -84,8 +89,8 @@ export default function AddPost(props) {
                 <input
                     type="text"
                     name="text"
-                    value={state.text}
-                    onChange={handleChange}
+                    value={ state.text }
+                    onChange={ handleChange }
                 /><br /><br />
                 <input type="submit" value="Post-It" />
             </form>

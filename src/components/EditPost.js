@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 
 export default function EditPost(props) {
-    const [state, setState] = useState(
+    const [ state, setState ] = useState(
         {
             author: props.post.author,
             image: props.post.image,
@@ -17,7 +17,7 @@ export default function EditPost(props) {
         setState(
             {
                 ...state,
-                [event.target.name]: event.target.value
+                [ event.target.name ]: event.target.value
             }
         )
     }
@@ -38,27 +38,27 @@ export default function EditPost(props) {
 
     return (
         <form
-            name={props.post.id}
+            name={ props.post.id }
             className="edit-post-form"
-            onSubmit={updatePost}
+            onSubmit={ updatePost }
         >
             <label htmlFor="author">Author</label><br />
             <input
                 type="number"
                 name="author"
-                onChange={handleChange}
+                onChange={ handleChange }
             /><br />
             <label htmlFor="image">Image</label><br />
             <input
                 type="text"
                 name="image"
-                onChange={handleChange}
+                onChange={ handleChange }
             /><br />
             <label htmlFor="text">Text</label><br />
             <input
                 type="text"
                 name="text"
-                onChange={handleChange}
+                onChange={ handleChange }
             /><br />
             <input type="submit" value="Update Post" />
         </form>

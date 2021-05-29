@@ -18,7 +18,7 @@ import Signup from './Signup'
 import UpdateProfile from './UpdateProfile'
 
 export default function App() {
-    const [state, setState] = useState(
+    const [ state, setState ] = useState(
         {
             posts: []
         }
@@ -45,7 +45,7 @@ export default function App() {
     const handleChange = (e) => {
         this.setState(
             {
-                [e.target.name]: e.target.value
+                [ e.target.name ]: e.target.value
             }
         )
     }
@@ -84,20 +84,20 @@ export default function App() {
         <div>
             <Container
                 className="d-flex align-itmes-center justify-content-center"
-                style={{minHeight: "100vh"}}
+                style={ {minHeight: "100vh"} }
             > {/* CONTAINER */}
                 <div
                     className="w-100"
-                    style={{maxWidth: "400px"}}
+                    style={ {maxWidth: "400px"} }
                 >{/* DIV */}
                     <Router>
                         <AuthProvider>
                             <Switch>
-                                <Route path="/signup" component={Signup} />
-                                <Route path="/login" component={Login} />
-                                <Route path="/forgot-password" component={ForgotPassword} />
-                                <PrivateRoute exact path="/" component={MainPage} />
-                                <PrivateRoute path="/update-profile" component={UpdateProfile} />
+                                <Route path="/signup" component={ Signup } />
+                                <Route path="/login" component={ Login } />
+                                <Route path="/forgot-password" component={ ForgotPassword } />
+                                <PrivateRoute exact path="/" component={ MainPage } />
+                                <PrivateRoute path="/update-profile" component={ UpdateProfile } />
                             </Switch>
                         </AuthProvider>
                     </Router>
@@ -105,14 +105,14 @@ export default function App() {
             </Container>
 
             <AddPost
-                getPosts={getPosts}
+                getPosts={ getPosts }
             ></AddPost>
 
             <PostList
-                posts={state.posts}
-                getPosts={getPosts}
-                deletePost={deletePost}
-                handleChange={handleChange}
+                posts={ state.posts }
+                getPosts={ getPosts }
+                deletePost={ deletePost }
+                handleChange={ handleChange }
             ></PostList>
         </div>
     )
