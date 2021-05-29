@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-export default <COMPONENT NAME> () {
+export default function <COMPONENT NAME> () {
     const [state, setState] = useState({ key: 'value' })
 
     return (

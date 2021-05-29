@@ -16,6 +16,7 @@ import PostList from './PostList'
 import PrivateRoute from './PrivateRoute'
 import Signup from './Signup'
 import UpdateProfile from './UpdateProfile'
+import Comment from './Comment'
 
 export default function App() {
     const [ state, setState ] = useState(
@@ -82,6 +83,7 @@ export default function App() {
 
     return (
         <div>
+
             <Container
                 className="d-flex align-itmes-center justify-content-center"
                 style={ {minHeight: "100vh"} }
@@ -114,6 +116,7 @@ export default function App() {
                 deletePost={ deletePost }
                 handleChange={ handleChange }
             ></PostList>
+
         </div>
     )
 

@@ -9,6 +9,7 @@ import {useAuth} from '../contexts/AuthContext'
 // PRIVATE ROUTE
 import PrivateRoute from './PrivateRoute'
 
+
 export default function MainPage() {
     const [ error, setError ] = useState("")
     const { currentUser, logout } = useAuth()
