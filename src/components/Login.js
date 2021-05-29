@@ -32,7 +32,6 @@ export default function Login() {
             <Card>
                 <Card.Body>
                     <h2 className="text-center mb-4">Log In</h2>
-
                     { error && <Alert variant="danger">{error}</Alert> }
                     <Form onSubmit={ handleSubmit }>
                         <Form.Group id="email">
@@ -46,7 +45,7 @@ export default function Login() {
                         <Button className="w-100" type="submit">Log In</Button>
                     </Form>
                         <div className= "w-100 text-center mt-3">
-                            <Link to="/forgot-password"> Forgot Password?</Link>
+                            <Link to="/forgot-password">Forgot Password?</Link>
                         </div>
                 </Card.Body>
             </Card>
