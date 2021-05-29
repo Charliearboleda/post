@@ -1,15 +1,20 @@
+// DEPENDENCIES
 import React, { useState, useEffect } from 'react'
+import { Container } from 'react-bootstrap'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import axios from 'axios'
-import Signup from './Signup'
-import { Container } from "react-bootstrap"
+
+// CONTEXTS
 import { AuthProvider } from '../contexts/AuthContext'
+
+// COMPONTENTS
 import AddPost from './AddPost'
-import PostList from './PostList'
-import {BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import ForgotPassword from './ForgotPassword'
 import Login from './Login'
 import MainPage from './MainPage'
+import PostList from './PostList'
 import PrivateRoute from './PrivateRoute'
-import ForgotPassword from './ForgotPassword'
+import Signup from './Signup'
 import UpdateProfile from './UpdateProfile'
 
 export default function App() {
@@ -25,7 +30,12 @@ export default function App() {
                 'https://post-ga-api.herokuapp.com/api/posts'
             ).then(
                 (response) => {
-                    setState({ ...state, posts: response.data })
+                    setState(
+                        {
+                            ...state,
+                            posts: response.data
+                        }
+                    )
                 },
                 (err) => console.log(err)
             )
@@ -33,9 +43,11 @@ export default function App() {
     }
 
     const handleChange = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
+        this.setState(
+            {
+                [e.target.name]: e.target.value
+            }
+        )
     }
 
     const handleSubmit = (e) => {
@@ -73,23 +85,22 @@ export default function App() {
             <Container
                 className="d-flex align-itmes-center justify-content-center"
                 style={{minHeight: "100vh"}}
-            >
+            > {/* CONTAINER */}
                 <div
                     className="w-100"
                     style={{maxWidth: "400px"}}
-                >
-                <Router>
-                    <AuthProvider>
-                    <Switch>
-                    <Route path="/signup" component={Signup} />
-                    <Route path="/login" component={Login} />
-                    <PrivateRoute exact path="/" component={MainPage} />
-                    <PrivateRoute path="/update-profile" component={UpdateProfile} />
-                    <Route path="/forgot-password" component={ForgotPassword} />
-                    </Switch>
-                    </AuthProvider>
-                </Router>
-
+                >{/* DIV */}
+                    <Router>
+                        <AuthProvider>
+                            <Switch>
+                                <Route path="/signup" component={Signup} />
+                                <Route path="/login" component={Login} />
+                                <Route path="/forgot-password" component={ForgotPassword} />
+                                <PrivateRoute exact path="/" component={MainPage} />
+                                <PrivateRoute path="/update-profile" component={UpdateProfile} />
+                            </Switch>
+                        </AuthProvider>
+                    </Router>
                 </div>
             </Container>
 
