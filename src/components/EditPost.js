@@ -1,20 +1,25 @@
+// DEPENDENCIES
 import React, { useState } from 'react'
 import axios from 'axios'
 
-export default function EditPost (props) {
-    const [state, setState] = useState({
-        author: props.post.author,
-        image: props.post.image,
-        text: props.post.text,
-        liked_by: props.post.liked_by,
-        comments: props.post.comments
-    })
+export default function EditPost(props) {
+    const [state, setState] = useState(
+        {
+            author: props.post.author,
+            image: props.post.image,
+            text: props.post.text,
+            liked_by: props.post.liked_by,
+            comments: props.post.comments
+        }
+    )
 
     const handleChange = (event) => {
-        setState({
-            ...state,
-            [event.target.name]: event.target.value
-        })
+        setState(
+            {
+                ...state,
+                [event.target.name]: event.target.value
+            }
+        )
     }
 
     const updatePost = (event) => {
@@ -55,14 +60,6 @@ export default function EditPost (props) {
                 name="text"
                 onChange={handleChange}
             /><br />
-            <input
-                type="hidden"
-                name="liked_by"
-            />
-            <input
-                type="hidden"
-                name="comments"
-            />
             <input type="submit" value="Update Post" />
         </form>
     )
