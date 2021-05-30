@@ -9,9 +9,7 @@ export default function AddPost(props) {
         {
             author: '',
             image: '',
-            text: '',
-            // liked_by: [0],
-            // comments: [0]
+            text: ''
         }
     )
 
@@ -24,7 +22,8 @@ export default function AddPost(props) {
         )
     }
 
-    const postPost = () => {
+    const postPost = (e) => {
+        e.preventDefault()
         axios // AXIOS 2 START =====
             .post('https://post-ga-api.herokuapp.com/api/posts', state)
             .then(
