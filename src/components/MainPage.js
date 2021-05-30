@@ -1,14 +1,10 @@
 // DEPENDENCIES
-import React, {useState} from 'react'
-import {Card, Button, Alert} from 'react-bootstrap'
-import {Link, useHistory} from 'react-router-dom'
+import React, { useState } from 'react'
+import { Card, Button, Alert } from 'react-bootstrap'
+import { Link, useHistory } from 'react-router-dom'
 
 // CONTEXTS
 import {useAuth} from '../contexts/AuthContext'
-
-// PRIVATE ROUTE
-import PrivateRoute from './PrivateRoute'
-
 
 export default function MainPage() {
     const [ error, setError ] = useState("")
