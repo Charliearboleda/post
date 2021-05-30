@@ -1,5 +1,5 @@
 // DEPENDENCIES
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 // import { Image } from 'cloudinary-react'
 
@@ -22,53 +22,79 @@ export default function AddPost(props) {
         )
     }
 
-    const postPost = (e) => {
-        e.preventDefault()
-        axios // AXIOS 2 START =====
-            .post('https://post-ga-api.herokuapp.com/api/posts', state)
-            .then(
-                (response) => {
-                    props.getPosts()
-                }
-            )
-            .catch((err) => {
-                console.log(err)
-            })
-        // AXIOS 2 END =====
-    }
-
-    const uploadImage = () => {
+    const uploadImage = (event) => {
+        event.preventDefault()
         const formData = new FormData()
         formData.append("file", imageSelected)
         formData.append("upload_preset", "vutyx5hg")
-        axios // AXIOS 1 START =====
+        console.log('uploading image') // REMOVE BEFORE WEDNESDAY ==================
+        axios // AXIOS (CLOUDINARY) START =====
             .post(
                 "https://api.cloudinary.com/v1_1/aocloud/image/upload",
                 formData
             ).then(
                 (response) => {
+                    console.log('image uploaded; setting state')
                     setState(
                         {
                             ...state,
                             image: response.data.secure_url
                         }
                     )
+                    return response.data.secure_url
                 }
-            ).then( // for some reason, we can't get postPost() to trigger only AFTER we get a response back from cloudinary
-                postPost()
             )
-        // AXIOS 1 END =====
+        // AXIOS (CLOUDINARY) END =====
     }
 
-    const addPost = (event) => {
-        event.preventDefault()
-        uploadImage()
+    const postPost = () => {
+        axios // AXIOS (POSTS API) START =====
+            .post('https://post-ga-api.herokuapp.com/api/posts', state)
+            .then(
+                (response) => {
+                    console.log('resetting the form') // REMOVE BEFORE WEDNESDAY ==================
+                    document.getElementById('add-post-form').reset()
+                    console.log('got posts; resetting state') // REMOVE BEFORE WEDNESDAY ==================
+                    setState(
+                        {
+                            author: '',
+                            image: '',
+                            text: ''
+                        }
+                    )
+                    props.getPosts()
+                }
+            )
+            .catch((err) => {
+                console.log(err)
+            })
+        // AXIOS (POSTS API) END =====
     }
+
+    // JOSH'S SLEEP IDEA #1
+    // const setImage = (event) => {
+    //     event.preventDefault()
+    //     return new Promise((resolve, reject) => {
+    //         resolve(uploadImage())
+    //     }).then((res) => {
+    //         console.log(res)
+    //         postPost()
+    //     }).catch((error) => {
+    //         console.log(error)
+    //     })
+    // }
+
+    // JOSH'S SLEEP IDEA #2
+    useEffect(() => {
+        if (state.image !== '') {
+            postPost()
+        }
+    }, [state.image])
 
     return (
         <div>
             <h2>Add a New Post</h2>
-            <form id="add-post-form" onSubmit={ postPost }>
+            <form id="add-post-form" onSubmit={ uploadImage }>
                 <label htmlFor="author">Author</label>
                 <input
                     type="number"
@@ -95,57 +121,4 @@ export default function AddPost(props) {
             </form>
         </div>
     )
-
-    // return (
-    //     <div>
-    //         <div>
-    //                 <form onSubmit={uploadImage}>
-    //                     <input
-    //                         type="file"
-    //                         onChange={(event) => {
-    //                             setImageSelected(event.target.files[0])
-    //                         }}
-    //                     />
-    //                     <input
-    //                         type="submit"
-    //                         value="upload image"
-    //                     />
-    //                 </form>
-    //                 <Image
-    //                     cloudName="aocloud"
-    //                     public="https://res.cloudinary.com/aocloud/image/upload/v1622230076/familyguy_uql16m.webp"
-    //                 />
-    //             </div>
-    //
-    //         <br />
-    //         <br />
-    //         <br />
-    //         <br />
-    //         <h2>Add a New Post</h2>
-    //         <form id="add-post-form" onSubmit={addPost}>
-    //             <label htmlFor="author">Author</label>
-    //             <input
-    //                 type="number"
-    //                 name="author"
-    //                 value={state.author}
-    //                 onChange={handleChange}
-    //             /><br />
-    //             <label htmlFor="image">Image</label>
-    //             <input
-    //                 type="text"
-    //                 name="image"
-    //                 value={state.image}
-    //                 onChange={handleChange}
-    //             /><br />
-    //             <label htmlFor="text">Share Something:</label>
-    //             <input
-    //                 type="text"
-    //                 name="text"
-    //                 value={state.text}
-    //                 onChange={handleChange}
-    //             /><br />
-    //             <input type="submit" value="Post-It" />
-    //         </form>
-    //     </div>
-    // )
 }
