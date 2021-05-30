@@ -3,9 +3,10 @@ import {Form} from 'react-bootstrap'
 import axios from "axios"
 
 
-export default function Comment() {
-    const [state, setState] = useState({
+export default function AddComment(props) {
+    const [ state, setState ] = useState({
         author: '',
+        post: '',
         text: '',
     })
 
@@ -16,19 +17,6 @@ export default function Comment() {
                 [event.target.name]: event.target.value
             }
         )
-    }
-
-    const getPosts = () => {
-        axios
-            .get(
-                'https://post-ga-api.herokuapp.com/api/posts'
-            ).then(
-                (response) => {
-                    setState({ ...state, posts: response.data })
-                },
-                (err) => console.log(err)
-            )
-        // AXIOS END =====
     }
 
     // const addComment = (e) => {
@@ -47,7 +35,7 @@ export default function Comment() {
                 state
             ).then(
                 (response) => {
-                    getPosts()
+                    props.getPosts()
                 }
             )
         // AXIOS END =====
@@ -55,22 +43,17 @@ export default function Comment() {
 
     return (
         <>
-        <Form onSubmit={addComment}>
-        <input
-         type="number"
-         name="author"
-         value={state.author}
-         onChange={handleChange}
-        />
+        <Form onSubmit={ handleSubmit }>
         <input
             type="textarea"
-             value={state.text}
-             name="text"
-             onChange={handleChange}/>
-             <input
-             type="submit"
-             onClick={handleSubmit}
-             value="add comment" />
+            value={ state.text }
+            name="text"
+            onChange={ handleChange }
+        />
+         <input
+            type="submit"
+            value={"Add Comment"}
+        />
 
         </Form>
         </>

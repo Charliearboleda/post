@@ -10,8 +10,8 @@ export default function AddPost(props) {
             author: '',
             image: '',
             text: '',
-            liked_by: [0],
-            comments: [0]
+            // liked_by: [0],
+            // comments: [0]
         }
     )
 
@@ -69,7 +69,7 @@ export default function AddPost(props) {
     return (
         <div>
             <h2>Add a New Post</h2>
-            <form id="add-post-form" onSubmit={ addPost }>
+            <form id="add-post-form" onSubmit={ postPost }>
                 <label htmlFor="author">Author</label>
                 <input
                     type="number"
