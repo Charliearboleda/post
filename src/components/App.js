@@ -7,7 +7,7 @@ import axios from 'axios'
 // CONTEXTS
 import { AuthProvider } from '../contexts/AuthContext'
 
-// COMPONTENTS
+// COMPONENTS
 import AddPost from './AddPost'
 import ForgotPassword from './ForgotPassword'
 import Login from './Login'
@@ -16,7 +16,6 @@ import PostList from './PostList'
 import PrivateRoute from './PrivateRoute'
 import Signup from './Signup'
 import UpdateProfile from './UpdateProfile'
-import Comment from './Comment'
 
 export default function App() {
     const [ state, setState ] = useState(
@@ -29,6 +28,24 @@ export default function App() {
         axios
             .get(
                 'https://post-ga-api.herokuapp.com/api/posts'
+            ).then(
+                (response) => {
+                    setState(
+                        {
+                            ...state,
+                            posts: response.data
+                        }
+                    )
+                },
+                (err) => console.log(err)
+            )
+        // AXIOS END =====
+    }
+
+    const getComments = () => { // THIS IS ONLY HERE FOR TESTING PURPOSES; NEED TO MOVE
+        axios
+            .get(
+                'https://post-ga-api.herokuapp.com/api/comments'
             ).then(
                 (response) => {
                     setState(
@@ -79,11 +96,10 @@ export default function App() {
 
     useEffect(() => {
         getPosts()
-    })
+    }, [])
 
     return (
         <div>
-
             <Container
                 className="d-flex align-itmes-center justify-content-center"
                 style={ {minHeight: "100vh"} }
@@ -116,7 +132,6 @@ export default function App() {
                 deletePost={ deletePost }
                 handleChange={ handleChange }
             ></PostList>
-
         </div>
     )
 
