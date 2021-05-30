@@ -18,26 +18,28 @@ export default function Comment() {
         )
     }
 
-    const getPosts = () => {
-        axios
-            .get(
-                'https://post-ga-api.herokuapp.com/api/posts'
-            ).then(
-                (response) => {
-                    setState({ ...state, posts: response.data })
-                },
-                (err) => console.log(err)
-            )
-        // AXIOS END =====
+    const componentDidMount = () => {
+        getComments()
     }
 
-    // const addComment = (e) => {
-    //     e.preventDefault()
-    //     axios
-    //     .post()
-    //     .then()
-    //     .
-    // }
+
+    const getComments = () =>{
+        axios.get('https://post-ga-api.herokuapp.com/api/comments')
+        .then((response)=>{
+            setState({
+                ...state, comments: response.data
+            })
+        })
+    }
+
+    const addComment = (e) => {
+        axios
+        .post('https://post-ga-api.herokuapp.com/api/comments', state).then((response)=>{
+            getComments()
+        })
+
+
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -47,7 +49,7 @@ export default function Comment() {
                 state
             ).then(
                 (response) => {
-                    getPosts()
+                    getComments()
                 }
             )
         // AXIOS END =====
