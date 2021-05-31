@@ -31,7 +31,7 @@ export default function AddComment(props) {
         e.preventDefault()
         axios
             .post(
-                'http://localhost:8000/api/comments',
+                'https://post-ga-api.herokuapp.com/api/comments',
                 state
             ).then(
                 (response) => {

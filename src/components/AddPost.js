@@ -52,7 +52,7 @@ export default function AddPost(props) {
 
     const postPost = () => {
         axios // AXIOS (POSTS API) START =====
-            .post('http://localhost:8000/api/posts', state)
+            .post('https://post-ga-api.herokuapp.com/api/posts', state)
             .then(
                 (response) => {
                     console.log('resetting the form') // REMOVE BEFORE WEDNESDAY ==================
