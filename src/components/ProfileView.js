@@ -23,7 +23,7 @@ export default function ProfileView() {
     const deletePost = (e) => {
         axios
             .delete(
-                'http://localhost:8000/api/posts/' + e.target.value
+                'https://post-ga-api.herokuapp.com/api/posts' + e.target.value
             ).then(
                 (response) => {
                     getPosts()
