@@ -58,7 +58,7 @@ export default function ProfileView() {
         <>
             <PostList
                 posts={ state.posts }
-                getPosts={ getPosts }
+                getPosts={ getPosts } // THIS GETS DRILLED 4 LEVELS DOWN TO EDIT POST; CONVERT TO USING CONTEXT?
                 deletePost={ deletePost }
                 handleChange={ handleChange }
             ></PostList>
