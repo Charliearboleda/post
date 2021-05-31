@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react'
 import { Card, Button, Alert } from 'react-bootstrap'
 import { Link, useHistory } from 'react-router-dom'
 
-
 // CONTEXTS
 import { useAuth } from '../contexts/AuthContext'
 
@@ -12,13 +11,13 @@ import ProfileView from './ProfileView'
 
 export default function MainPage() {
     const [ error, setError ] = useState("")
-    const { currentUser, logout } = useAuth()
-    const history = useHistory()
     const [ state, setState ] = useState(
         {
             posts: []
         }
     )
+    const { currentUser, logout } = useAuth()
+    const history = useHistory()
 
     async function handleLogout() {
         setError("")
@@ -53,8 +52,8 @@ export default function MainPage() {
                 </div>
             </details>
             <Link
-            to="/add-post"
-            className="btn btn-primary w-50 mt-3"
+                to="/add-post"
+                className="btn btn-primary w-50 mt-3"
             >Create New Post</Link>
             <ProfileView></ProfileView>
 

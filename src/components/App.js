@@ -1,5 +1,5 @@
 // DEPENDENCIES
-import React, { useState } from 'react'
+import React from 'react'
 import { Container } from 'react-bootstrap'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import axios from 'axios'
@@ -19,26 +19,6 @@ import UserPostPage from './UserPostPage'
 
 
 export default function App() {
-    const [ state, setState ] = useState({})
-
-    const getPosts = () => {
-        axios
-            .get(
-                'https://post-ga-api.herokuapp.com/api/posts'
-            ).then(
-                (response) => {
-                    setState(
-                        {
-                            ...state,
-                            posts: response.data
-                        }
-                    )
-                },
-                (err) => console.log(err)
-            )
-        // AXIOS END =====
-    }
-
     return (
         <>
             <Container
@@ -65,10 +45,6 @@ export default function App() {
                     </Router>
                 </div>
             </Container>
-
-
-
-
         </>
     )
 

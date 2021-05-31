@@ -17,6 +17,7 @@ export default function AddPost(props) {
             text: ''
         }
     )
+    const { currentUser, setPosts, getPosts } = useAuth()
 
     const handleChange = (event) => {
         setState(
@@ -49,7 +50,7 @@ export default function AddPost(props) {
                     return response.data.secure_url
                 }
             )
-            history.push('/')
+        // history.push('/')
         // AXIOS (CLOUDINARY) END =====
     }
 
@@ -68,7 +69,8 @@ export default function AddPost(props) {
                             text: ''
                         }
                     )
-                    props.getPosts()
+                    getPosts()
+                    history.push('/')
                 }
             )
             .catch((err) => {
@@ -93,6 +95,7 @@ export default function AddPost(props) {
     // JOSH'S SLEEP IDEA #2
     useEffect(() => {
         if (state.image !== '') {
+            console.log("useEffect() triggered!")
             postPost()
         }
     }, [state.image])
@@ -126,8 +129,8 @@ export default function AddPost(props) {
                 <input type="submit" value="Post-It" />
             </form>
             <Link
-            to="/"
-            className="btn btn-primary w-50 mt-3"
+                to="/"
+                className="btn btn-primary w-50 mt-3"
             >Cancel</Link>
         </div>
     )
