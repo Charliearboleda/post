@@ -3,6 +3,9 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 // import { Image } from 'cloudinary-react'
 
+// CONTEXTS
+import { useAuth } from '../contexts/AuthContext'
+
 export default function AddPost(props) {
     const [ imageSelected, setImageSelected ] = useState("")
     const [ state, setState ] = useState(

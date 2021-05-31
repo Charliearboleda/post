@@ -8,7 +8,6 @@ import axios from 'axios'
 import { useAuth } from '../contexts/AuthContext'
 
 export default function Login() {
-    const [ thisUser, setThisUser ] = useState(false)
     const [ error, setError ] = useState('')
     const [ loading, setLoading ] = useState(false)
     const emailRef = useRef()
