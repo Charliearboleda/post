@@ -9,7 +9,7 @@ import { useAuth } from '../contexts/AuthContext'
 export default function ForgotPassword() {
     const [ error, setError ] = useState('')
     const [ message, setMessage ] = useState('')
-    const [ loading, setLoading ] = useState(false)
+    const [ loading, setLoading ] = useState(false) // WHAT IS THIS FOR? =======
     const emailRef = useRef()
     const { resetPassword } = useAuth()
 
