@@ -1,7 +1,7 @@
 // DEPENDENCIES
-import React, {useRef, useState, useEffect} from 'react'
-import {Card, Button, Form, Alert} from 'react-bootstrap'
-import {Link, useHistory} from 'react-router-dom'
+import React, { useRef, useState } from 'react'
+import { Card, Button, Form, Alert } from 'react-bootstrap'
+import { Link, useHistory } from 'react-router-dom'
 
 // CONTEXTS
 import {useAuth} from '../contexts/AuthContext'
