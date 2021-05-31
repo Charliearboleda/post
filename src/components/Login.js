@@ -23,7 +23,7 @@ export default function Login() {
             await login(emailRef.current.value, passwordRef.current.value)
             const currentUserEmail = currentUser.email
             axios
-                .get('http://localhost:8000/api/users')
+                .get('https://post-ga-api.herokuapp.com/api/users')
                 .then((users) => {
                     for (let i = 0; i < users.data.length; i++) {
                         if (users.data[i].email === currentUserEmail) {

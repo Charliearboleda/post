@@ -1,6 +1,7 @@
 // DEPENDENCIES
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useHistory, Link } from 'react-router-dom'
 // import { Image } from 'cloudinary-react'
 
 // CONTEXTS
@@ -8,6 +9,7 @@ import { useAuth } from '../contexts/AuthContext'
 
 export default function AddPost(props) {
     const [ imageSelected, setImageSelected ] = useState("")
+    const history = useHistory()
     const [ state, setState ] = useState(
         {
             user: '',
@@ -15,6 +17,7 @@ export default function AddPost(props) {
             text: ''
         }
     )
+    const { currentUser, setPosts, getPosts } = useAuth()
 
     const handleChange = (event) => {
         setState(
@@ -47,12 +50,13 @@ export default function AddPost(props) {
                     return response.data.secure_url
                 }
             )
+        // history.push('/')
         // AXIOS (CLOUDINARY) END =====
     }
 
     const postPost = () => {
         axios // AXIOS (POSTS API) START =====
-            .post('http://localhost:8000/api/posts', state)
+            .post('https://post-ga-api.herokuapp.com/api/posts', state)
             .then(
                 (response) => {
                     console.log('resetting the form') // REMOVE BEFORE WEDNESDAY ==================
@@ -65,7 +69,8 @@ export default function AddPost(props) {
                             text: ''
                         }
                     )
-                    props.getPosts()
+                    getPosts()
+                    history.push('/')
                 }
             )
             .catch((err) => {
@@ -90,6 +95,7 @@ export default function AddPost(props) {
     // JOSH'S SLEEP IDEA #2
     useEffect(() => {
         if (state.image !== '') {
+            console.log("useEffect() triggered!")
             postPost()
         }
     }, [state.image])
@@ -122,6 +128,10 @@ export default function AddPost(props) {
                 /><br /><br />
                 <input type="submit" value="Post-It" />
             </form>
+            <Link
+                to="/"
+                className="btn btn-primary w-50 mt-3"
+            >Cancel</Link>
         </div>
     )
 }
