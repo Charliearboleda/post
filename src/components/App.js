@@ -15,6 +15,8 @@ import MainPage from './MainPage'
 import PrivateRoute from './PrivateRoute'
 import Signup from './Signup'
 import UpdateProfile from './UpdateProfile'
+import UserPostPage from './UserPostPage'
+
 
 export default function App() {
     const [ state, setState ] = useState({})
@@ -53,17 +55,18 @@ export default function App() {
                                 <Route path="/signup" component={ Signup } />
                                 <Route path="/login" component={ Login } />
                                 <Route path="/forgot-password" component={ ForgotPassword } />
+                                <PrivateRoute exact path='/user-post-page' component={UserPostPage} />
                                 <PrivateRoute exact path="/" component={ MainPage } />
+                                <PrivateRoute exact path='/add-post' component={AddPost} />
                                 <PrivateRoute path="/update-profile" component={ UpdateProfile } />
                             </Switch>
                         </AuthProvider>
+                        
                     </Router>
                 </div>
             </Container>
 
-            <AddPost
-                getPosts={ getPosts }
-            ></AddPost>
+
 
 
         </>

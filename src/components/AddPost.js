@@ -1,6 +1,7 @@
 // DEPENDENCIES
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useHistory, Link } from 'react-router-dom'
 // import { Image } from 'cloudinary-react'
 
 // CONTEXTS
@@ -8,6 +9,7 @@ import { useAuth } from '../contexts/AuthContext'
 
 export default function AddPost(props) {
     const [ imageSelected, setImageSelected ] = useState("")
+    const history = useHistory()
     const [ state, setState ] = useState(
         {
             user: '',
@@ -47,6 +49,7 @@ export default function AddPost(props) {
                     return response.data.secure_url
                 }
             )
+            history.push('/')
         // AXIOS (CLOUDINARY) END =====
     }
 
@@ -122,6 +125,10 @@ export default function AddPost(props) {
                 /><br /><br />
                 <input type="submit" value="Post-It" />
             </form>
+            <Link
+            to="/"
+            className="btn btn-primary w-50 mt-3"
+            >Cancel</Link>
         </div>
     )
 }
