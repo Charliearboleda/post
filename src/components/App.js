@@ -17,20 +17,19 @@ import Signup from './Signup'
 import UpdateProfile from './UpdateProfile'
 import UserPostPage from './UserPostPage'
 
-
 export default function App() {
     return (
         <>
-            <Container
-                className="d-flex align-itmes-center justify-content-center"
-                style={ {minHeight: "100vh"} }
-            > {/* CONTAINER */}
-                <div
-                    className="w-100"
-                    style={ {maxWidth: "400px"} }
-                >{/* DIV */}
-                    <Router>
-                        <AuthProvider>
+            <AuthProvider>
+                <Container
+                    className="d-flex align-itmes-center justify-content-center"
+                    style={ {minHeight: "100vh"} }
+                > {/* CONTAINER */}
+                    <div
+                        className="w-100"
+                        style={ {maxWidth: "400px"} }
+                    >{/* DIV */}
+                        <Router>
                             <Switch>
                                 <Route path="/signup" component={ Signup } />
                                 <Route path="/login" component={ Login } />
@@ -40,11 +39,10 @@ export default function App() {
                                 <PrivateRoute exact path='/add-post' component={AddPost} />
                                 <PrivateRoute path="/update-profile" component={ UpdateProfile } />
                             </Switch>
-                        </AuthProvider>
-
-                    </Router>
-                </div>
-            </Container>
+                        </Router>
+                    </div>
+                </Container>
+            </AuthProvider>
         </>
     )
 
