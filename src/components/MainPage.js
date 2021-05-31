@@ -26,10 +26,6 @@ export default function MainPage() {
 
     return (
         <>
-            <ProfileView>
-            </ProfileView>
-
-
             <details>
                 <summary>Account Settings</summary>
                 <Card>
@@ -49,6 +45,7 @@ export default function MainPage() {
                     >Log Out</Button>
                 </div>
             </details>
+            <ProfileView></ProfileView>
         </>
 
     )
