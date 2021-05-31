@@ -1,25 +1,40 @@
+// DEPENDENCIES
+import React, { useRef, useState } from 'react'
+import { Card, Button, Form, Alert } from 'react-bootstrap'
+import { Link, useHistory } from 'react-router-dom'
+import axios from 'axios'
 
-import React, {useRef, useState, useEffect} from 'react'
-import {Card, Button, Form, Alert} from 'react-bootstrap'
-import {useAuth} from '../contexts/AuthContext'
-import {Link, useHistory} from 'react-router-dom'
-
+// CONTEXTS
+import { useAuth } from '../contexts/AuthContext'
 
 export default function Login() {
-    const [error, setError] = useState('')
-    const [loading, setLoading] = useState(false)
+    const [ error, setError ] = useState('')
+    const [ loading, setLoading ] = useState(false)
     const emailRef = useRef()
     const passwordRef = useRef()
-    const {login} = useAuth()
+    const { login, currentUser, setCurrentUser } = useAuth()
     const history = useHistory()
 
     async function handleSubmit (e) {
         e.preventDefault()
-
         try {
             setError('')
             setLoading(true)
             await login(emailRef.current.value, passwordRef.current.value)
+            const currentUserEmail = currentUser.email
+            axios
+                .get('https://post-ga-api.herokuapp.com/api/users')
+                .then((users) => {
+                    for (let i = 0; i < users.data.length; i++) {
+                        if (users.data[i].email === currentUserEmail) {
+                            setCurrentUser({
+                                ...currentUser,
+                                ...users.data[i]
+                            })
+                            break
+                        }
+                    }
+                })
             history.push('/')
         } catch {
             setError('Failed to log in. Please try again')
@@ -32,21 +47,20 @@ export default function Login() {
             <Card>
                 <Card.Body>
                     <h2 className="text-center mb-4">Log In</h2>
-
-                    {error && <Alert variant="danger">{error}</Alert>}
-                    <Form onSubmit={handleSubmit}>
+                    { error && <Alert variant="danger">{error}</Alert> }
+                    <Form onSubmit={ handleSubmit }>
                         <Form.Group id="email">
                             <Form.Label>Email</Form.Label>
-                            <Form.Control type="email" ref={emailRef} required />
+                            <Form.Control type="email" ref={ emailRef } required />
                         </Form.Group>
                         <Form.Group id="password">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" ref={passwordRef} required />
+                            <Form.Control type="password" ref={ passwordRef } required />
                         </Form.Group>
                         <Button className="w-100" type="submit">Log In</Button>
                     </Form>
                         <div className= "w-100 text-center mt-3">
-                            <Link to="/forgot-password"> Forgot Password?</Link>
+                            <Link to="/forgot-password">Forgot Password?</Link>
                         </div>
                 </Card.Body>
             </Card>

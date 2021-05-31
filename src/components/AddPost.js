@@ -1,173 +1,137 @@
-import React, { useState } from 'react'
+// DEPENDENCIES
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useHistory, Link } from 'react-router-dom'
 // import { Image } from 'cloudinary-react'
 
+// CONTEXTS
+import { useAuth } from '../contexts/AuthContext'
+
 export default function AddPost(props) {
-    const [imageSelected, setImageSelected] = useState("")
-    const [state, setState] = useState({
-        author: '',
-        image: '',
-        text: '',
-        liked_by: [0],
-        comments: [0]
-    })
+    const [ imageSelected, setImageSelected ] = useState("")
+    const history = useHistory()
+    const [ state, setState ] = useState(
+        {
+            user: '',
+            image: '',
+            text: ''
+        }
+    )
+    const { currentUser, setPosts, getPosts } = useAuth()
 
     const handleChange = (event) => {
         setState(
             {
                 ...state,
-                [event.target.name]: event.target.value
+                [ event.target.name ]: event.target.value
             }
         )
     }
 
-    const postPost = () => {
-        axios // AXIOS 2 START =====
-            .post('https://post-ga-api.herokuapp.com/api/posts', state)
-            .then(
-                (response) => {
-                    props.getPosts()
-                }
-            )
-            .catch((err) => {
-                console.log(err)
-            })
-        // AXIOS 2 END =====
-    }
-
-    const uploadImage = () => {
+    const uploadImage = (event) => {
+        event.preventDefault()
         const formData = new FormData()
         formData.append("file", imageSelected)
         formData.append("upload_preset", "vutyx5hg")
-        axios // AXIOS 1 START =====
+        console.log('uploading image') // REMOVE BEFORE WEDNESDAY ==================
+        axios // AXIOS (CLOUDINARY) START =====
             .post(
                 "https://api.cloudinary.com/v1_1/aocloud/image/upload",
                 formData
             ).then(
                 (response) => {
-                    setState({...state, image: response.data.secure_url})
+                    console.log('image uploaded; setting state') // REMOVE BEFORE WEDNESDAY ==================
+                    setState(
+                        {
+                            ...state,
+                            image: response.data.secure_url
+                        }
+                    )
+                    return response.data.secure_url
                 }
-            ).then( // for some reason, we can't get postPost() to trigger only AFTER we get a response back from cloudinary
-                postPost()
             )
-        // AXIOS 1 END =====
+        // history.push('/')
+        // AXIOS (CLOUDINARY) END =====
     }
 
-    const addPost = (event) => {
-        event.preventDefault()
-        uploadImage()
+    const postPost = () => {
+        axios // AXIOS (POSTS API) START =====
+            .post('https://post-ga-api.herokuapp.com/api/posts', state)
+            .then(
+                (response) => {
+                    console.log('resetting the form') // REMOVE BEFORE WEDNESDAY ==================
+                    document.getElementById('add-post-form').reset()
+                    console.log('got posts; resetting state') // REMOVE BEFORE WEDNESDAY ==================
+                    setState(
+                        {
+                            user: '',
+                            image: '',
+                            text: ''
+                        }
+                    )
+                    getPosts()
+                    history.push('/')
+                }
+            )
+            .catch((err) => {
+                console.log(err)
+            })
+        // AXIOS (POSTS API) END =====
     }
 
-
-    // const uploadImage = (event) => {
+    // JOSH'S SLEEP IDEA #1
+    // const setImage = (event) => {
     //     event.preventDefault()
-    //     const formData = new FormData()
-    //     formData.append("file", imageSelected)
-    //     formData.append("upload_preset", "vutyx5hg")
-    //     axios
-    //         .post(
-    //             "https://api.cloudinary.com/v1_1/aocloud/image/upload",
-    //             formData)
-    //         .then((response) => {
-    //             setState({...state, image: response.data.secure_url})
-    //         })
-    //     // AXIOS END =====
+    //     return new Promise((resolve, reject) => {
+    //         resolve(uploadImage())
+    //     }).then((res) => {
+    //         console.log(res)
+    //         postPost()
+    //     }).catch((error) => {
+    //         console.log(error)
+    //     })
     // }
 
+    // JOSH'S SLEEP IDEA #2
+    useEffect(() => {
+        if (state.image !== '') {
+            console.log("useEffect() triggered!")
+            postPost()
+        }
+    }, [state.image])
 
     return (
         <div>
             <h2>Add a New Post</h2>
-            <form id="add-post-form" onSubmit={addPost}>
+            <form id="add-post-form" onSubmit={ uploadImage }>
                 <label htmlFor="author">Author</label>
                 <input
                     type="number"
-                    name="author"
-                    value={state.author}
-                    onChange={handleChange}
+                    name="user"
+                    value={ state.author }
+                    onChange={ handleChange }
                 /><br /><br />
 
-                {/* <form onSubmit={uploadImage}> IMAGE UPLOAD FORM */}
-                    <input
-                        type="file"
-                        onChange={(event) => {
-                            setImageSelected(event.target.files[0])
-                        }}
-                    />
-                    {/* <input
-                        type="submit"
-                        value="upload image"
-                    /><br />
-                </form><br /><br */}
+                <input
+                    type="file"
+                    onChange={(event) => {
+                        setImageSelected(event.target.files[0])
+                    }}
+                />
 
                 <label htmlFor="text">Share Something:</label>
                 <input
                     type="text"
                     name="text"
-                    value={state.text}
-                    onChange={handleChange}
+                    value={ state.text }
+                    onChange={ handleChange }
                 /><br /><br />
                 <input type="submit" value="Post-It" />
             </form>
+            <Link
+                to="/"
+                className="btn btn-primary w-50 mt-3"
+            >Cancel</Link>
         </div>
     )
-
-
-
-
-
-
-
-    // return (
-    //     <div>
-    //         <div>
-    //                 <form onSubmit={uploadImage}>
-    //                     <input
-    //                         type="file"
-    //                         onChange={(event) => {
-    //                             setImageSelected(event.target.files[0])
-    //                         }}
-    //                     />
-    //                     <input
-    //                         type="submit"
-    //                         value="upload image"
-    //                     />
-    //                 </form>
-    //                 <Image
-    //                     cloudName="aocloud"
-    //                     public="https://res.cloudinary.com/aocloud/image/upload/v1622230076/familyguy_uql16m.webp"
-    //                 />
-    //             </div>
-    //
-    //         <br />
-    //         <br />
-    //         <br />
-    //         <br />
-    //         <h2>Add a New Post</h2>
-    //         <form id="add-post-form" onSubmit={addPost}>
-    //             <label htmlFor="author">Author</label>
-    //             <input
-    //                 type="number"
-    //                 name="author"
-    //                 value={state.author}
-    //                 onChange={handleChange}
-    //             /><br />
-    //             <label htmlFor="image">Image</label>
-    //             <input
-    //                 type="text"
-    //                 name="image"
-    //                 value={state.image}
-    //                 onChange={handleChange}
-    //             /><br />
-    //             <label htmlFor="text">Share Something:</label>
-    //             <input
-    //                 type="text"
-    //                 name="text"
-    //                 value={state.text}
-    //                 onChange={handleChange}
-    //             /><br />
-    //             <input type="submit" value="Post-It" />
-    //         </form>
-    //     </div>
-    // )
 }

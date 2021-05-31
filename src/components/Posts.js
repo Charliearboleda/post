@@ -2,30 +2,31 @@
 
 export default function Posts(props) {
     return (
-        <div key={props.post.id}>
-            <h3>Author: {props.post.author}</h3>
-            <img src={props.post.image} />
-            <h3>Post: {props.post.text}</h3>
+        <div key={ props.post.id }>
+            THIS IS Posts.js; USE Post.js
+            {/*<h3>Author: { props.post.author }</h3>
+            <img src={ props.post.image } />
+            <h3>Post: { props.post.text }</h3>
             <details>
                 <summary>Edit Post</summary>
-                <form name={props.post.id} onSubmit={props.updatePost}>
+                <form name={ props.post.id } onSubmit={ props.updatePost }>
                     <label htmlFor="author">Author</label><br />
                     <input
                         type="number"
                         name="author"
-                        onChange={props.handleChange}
+                        onChange={ props.handleChange }
                     /><br />
                     <label htmlFor="image">Image</label><br />
                     <input
                         type="text"
                         name="image"
-                        onChange={props.handleChange}
+                        onChange={ props.handleChange }
                     /><br />
                     <label htmlFor="text">Text</label><br />
                     <input
                         type="text"
                         name="text"
-                        onChange={props.handleChange}
+                        onChange={ props.handleChange }
                     /><br />
                     <input
                         type="hidden"
@@ -38,7 +39,10 @@ export default function Posts(props) {
                     <input type="submit" value="Update Post" />
                 </form>
             </details>
-            <button value={props.post.id} onClick={props.deletePost}>DELETE</button>
+            <button
+                value={ props.post.id }
+                onClick={ props.deletePost }
+            >DELETE</button> */}
         </div>
     )
 }

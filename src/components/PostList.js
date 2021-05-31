@@ -1,4 +1,7 @@
-// import React, { useState } from 'react'
+// DEPENDENCIES
+
+
+// COMPONENTS
 import Post from './Post'
 
 export default function PostList(props) {
@@ -8,10 +11,10 @@ export default function PostList(props) {
                 (post) => {
                     return (
                         <Post
-                            key={post.id}
-                            post={post}
-                            getPosts={props.getPosts}
-                            deletePost={props.deletePost}
+                            key={ post.id }
+                            post={ post }
+                            getPosts={ props.getPosts }
+                            deletePost={ props.deletePost }
                         />
                     )
                 }
