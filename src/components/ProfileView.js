@@ -23,7 +23,7 @@ export default function ProfileView() {
     const deletePost = (e) => {
         axios
             .delete(
-                'https://post-ga-api.herokuapp.com/api/posts/' + e.target.value
+                'https://post-ga-api.herokuapp.com/api/posts' + e.target.value
             ).then(
                 (response) => {
                     getPosts()
@@ -58,7 +58,7 @@ export default function ProfileView() {
         <>
             <PostList
                 posts={ state.posts }
-                getPosts={ getPosts }
+                getPosts={ getPosts } // THIS GETS DRILLED 4 LEVELS DOWN TO EDIT POST; CONVERT TO USING CONTEXT?
                 deletePost={ deletePost }
                 handleChange={ handleChange }
             ></PostList>

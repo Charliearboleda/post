@@ -1,17 +1,23 @@
 // DEPENDENCIES
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useHistory, Link } from 'react-router-dom'
 // import { Image } from 'cloudinary-react'
+
+// CONTEXTS
+import { useAuth } from '../contexts/AuthContext'
 
 export default function AddPost(props) {
     const [ imageSelected, setImageSelected ] = useState("")
+    const history = useHistory()
     const [ state, setState ] = useState(
         {
-            author: '',
+            user: '',
             image: '',
             text: ''
         }
     )
+    const { currentUser, setPosts, getPosts } = useAuth()
 
     const handleChange = (event) => {
         setState(
@@ -44,6 +50,7 @@ export default function AddPost(props) {
                     return response.data.secure_url
                 }
             )
+        // history.push('/')
         // AXIOS (CLOUDINARY) END =====
     }
 
@@ -57,12 +64,13 @@ export default function AddPost(props) {
                     console.log('got posts; resetting state') // REMOVE BEFORE WEDNESDAY ==================
                     setState(
                         {
-                            author: '',
+                            user: '',
                             image: '',
                             text: ''
                         }
                     )
-                    props.getPosts()
+                    getPosts()
+                    history.push('/')
                 }
             )
             .catch((err) => {
@@ -87,6 +95,7 @@ export default function AddPost(props) {
     // JOSH'S SLEEP IDEA #2
     useEffect(() => {
         if (state.image !== '') {
+            console.log("useEffect() triggered!")
             postPost()
         }
     }, [state.image])
@@ -98,7 +107,7 @@ export default function AddPost(props) {
                 <label htmlFor="author">Author</label>
                 <input
                     type="number"
-                    name="author"
+                    name="user"
                     value={ state.author }
                     onChange={ handleChange }
                 /><br /><br />
@@ -119,6 +128,10 @@ export default function AddPost(props) {
                 /><br /><br />
                 <input type="submit" value="Post-It" />
             </form>
+            <Link
+                to="/"
+                className="btn btn-primary w-50 mt-3"
+            >Cancel</Link>
         </div>
     )
 }

@@ -2,16 +2,17 @@
 import React, { useRef, useState } from 'react'
 import { Card, Button, Form, Alert } from 'react-bootstrap'
 import { Link, useHistory } from 'react-router-dom'
+import axios from 'axios'
 
 // CONTEXTS
-import {useAuth} from '../contexts/AuthContext'
+import { useAuth } from '../contexts/AuthContext'
 
 export default function Login() {
     const [ error, setError ] = useState('')
     const [ loading, setLoading ] = useState(false)
     const emailRef = useRef()
     const passwordRef = useRef()
-    const { login } = useAuth()
+    const { login, currentUser, setCurrentUser } = useAuth()
     const history = useHistory()
 
     async function handleSubmit (e) {
@@ -20,6 +21,20 @@ export default function Login() {
             setError('')
             setLoading(true)
             await login(emailRef.current.value, passwordRef.current.value)
+            const currentUserEmail = currentUser.email
+            axios
+                .get('https://post-ga-api.herokuapp.com/api/users')
+                .then((users) => {
+                    for (let i = 0; i < users.data.length; i++) {
+                        if (users.data[i].email === currentUserEmail) {
+                            setCurrentUser({
+                                ...currentUser,
+                                ...users.data[i]
+                            })
+                            break
+                        }
+                    }
+                })
             history.push('/')
         } catch {
             setError('Failed to log in. Please try again')

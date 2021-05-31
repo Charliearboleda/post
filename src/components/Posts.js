@@ -3,7 +3,8 @@
 export default function Posts(props) {
     return (
         <div key={ props.post.id }>
-            <h3>Author: { props.post.author }</h3>
+            THIS IS Posts.js; USE Post.js
+            {/*<h3>Author: { props.post.author }</h3>
             <img src={ props.post.image } />
             <h3>Post: { props.post.text }</h3>
             <details>
@@ -41,7 +42,7 @@ export default function Posts(props) {
             <button
                 value={ props.post.id }
                 onClick={ props.deletePost }
-            >DELETE</button>
+            >DELETE</button> */}
         </div>
     )
 }

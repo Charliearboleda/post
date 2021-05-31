@@ -1,5 +1,5 @@
 // DEPENDENCIES
-import React, { useState } from 'react'
+import React from 'react'
 import { Container } from 'react-bootstrap'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import axios from 'axios'
@@ -15,28 +15,10 @@ import MainPage from './MainPage'
 import PrivateRoute from './PrivateRoute'
 import Signup from './Signup'
 import UpdateProfile from './UpdateProfile'
+import UserPostPage from './UserPostPage'
+
 
 export default function App() {
-    const [ state, setState ] = useState({})
-
-    const getPosts = () => {
-        axios
-            .get(
-                'https://post-ga-api.herokuapp.com/api/posts'
-            ).then(
-                (response) => {
-                    setState(
-                        {
-                            ...state,
-                            posts: response.data
-                        }
-                    )
-                },
-                (err) => console.log(err)
-            )
-        // AXIOS END =====
-    }
-
     return (
         <>
             <Container
@@ -53,19 +35,16 @@ export default function App() {
                                 <Route path="/signup" component={ Signup } />
                                 <Route path="/login" component={ Login } />
                                 <Route path="/forgot-password" component={ ForgotPassword } />
+                                <PrivateRoute exact path='/user-post-page' component={UserPostPage} />
                                 <PrivateRoute exact path="/" component={ MainPage } />
+                                <PrivateRoute exact path='/add-post' component={AddPost} />
                                 <PrivateRoute path="/update-profile" component={ UpdateProfile } />
                             </Switch>
                         </AuthProvider>
+
                     </Router>
                 </div>
             </Container>
-
-            <AddPost
-                getPosts={ getPosts }
-            ></AddPost>
-
-
         </>
     )
 
