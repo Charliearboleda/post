@@ -28,7 +28,7 @@ export default function Signup(props) {
 
     const postUser = () => {
         axios
-            .post('https://post-ga-api.herokuapp.com/api/users', state)
+            .post('http://localhost:8000/api/users', state)
             .then(
                 (response) => {
                     setState(

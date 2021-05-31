@@ -26,7 +26,7 @@ export default function EditPost(props) {
         event.preventDefault()
         axios
             .put(
-                'https://post-ga-api.herokuapp.com/api/posts/' + props.post.id,
+                'http://localhost:8000/api/posts/' + props.post.id,
                 state
             ).then(
                 (response) => {

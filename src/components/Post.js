@@ -4,7 +4,7 @@ import AddComment from './AddComment'
 export default function Post(props) {
     return (
         <div key={ props.post.id }>
-            <h3>Author: { props.post.author }</h3>
+            <h3>Author: { props.post.user }</h3>
             <img src={ props.post.image } alt={ props.post.text } />
             <h3>Post: { props.post.text }</h3>
             <AddComment
