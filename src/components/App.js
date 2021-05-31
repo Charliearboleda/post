@@ -22,7 +22,7 @@ export default function App() {
     const getPosts = () => {
         axios
             .get(
-                'https://post-ga-api.herokuapp.com/api/posts'
+                'http://localhost:8000/api/posts'
             ).then(
                 (response) => {
                     setState(

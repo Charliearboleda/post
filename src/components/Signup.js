@@ -28,7 +28,7 @@ export default function Signup(props) {
 
     const postUser = () => {
         axios
-            .post('https://post-ga-api.herokuapp.com/api/users', state)
+            .post('http://localhost:8000/api/users', state)
             .then(
                 (response) => {
                     setState(
@@ -38,7 +38,6 @@ export default function Signup(props) {
                             text: ''
                         }
                     )
-                    props.getPosts()
                 }
             )
             .catch((err) => {
@@ -83,7 +82,6 @@ export default function Signup(props) {
                                 required
                             />
                         </Form.Group>
-                        {/* Add fields for displayName, tagLine; these only need to be submitted to our Django backend, and not firebase*/}
                         <Form.Group id="displayName">
                             <Form.Label>Display Name (not unique)</Form.Label>
                             <Form.Control
