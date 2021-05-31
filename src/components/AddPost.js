@@ -3,11 +3,14 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 // import { Image } from 'cloudinary-react'
 
+// CONTEXTS
+import { useAuth } from '../contexts/AuthContext'
+
 export default function AddPost(props) {
     const [ imageSelected, setImageSelected ] = useState("")
     const [ state, setState ] = useState(
         {
-            author: '',
+            user: '',
             image: '',
             text: ''
         }
@@ -49,7 +52,7 @@ export default function AddPost(props) {
 
     const postPost = () => {
         axios // AXIOS (POSTS API) START =====
-            .post('https://post-ga-api.herokuapp.com/api/posts', state)
+            .post('http://localhost:8000/api/posts', state)
             .then(
                 (response) => {
                     console.log('resetting the form') // REMOVE BEFORE WEDNESDAY ==================
@@ -57,7 +60,7 @@ export default function AddPost(props) {
                     console.log('got posts; resetting state') // REMOVE BEFORE WEDNESDAY ==================
                     setState(
                         {
-                            author: '',
+                            user: '',
                             image: '',
                             text: ''
                         }
@@ -98,7 +101,7 @@ export default function AddPost(props) {
                 <label htmlFor="author">Author</label>
                 <input
                     type="number"
-                    name="author"
+                    name="user"
                     value={ state.author }
                     onChange={ handleChange }
                 /><br /><br />
