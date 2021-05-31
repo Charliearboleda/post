@@ -61,7 +61,7 @@ export default function App() {
                                 <PrivateRoute path="/update-profile" component={ UpdateProfile } />
                             </Switch>
                         </AuthProvider>
-                        
+
                     </Router>
                 </div>
             </Container>
