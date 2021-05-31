@@ -42,21 +42,26 @@
 - React Router (view management)
 - React Context (state management)
 
-
 #### Backend
 - Django
-- Firebase (authentication, photo uploads)
+- Cloudinary (photo uploads)
+- Firebase (authentication)
 
 #### Project management, hosting, and deployment
 - [GitHub](https://github.com) (version control)
 - [Trello](https://trello.com) (project management)
 - [Heroku](https://heroku.com) with Heroku Postgres (hosting/deployment)
 
-
 #### Misc
 
+
 ## Unsolved Problems
+- Firebase was throwing an `invalid API key` error and we had absolutely 0 idea as to what could be wrong. We double and triple checked the API key, how we were calling the API key, how we were calling the API with the API key, and everything was right, but it still wasn't working. By chance, Charlie turned off his computer for the first time in forever on a whim when attending a family function, and when he came back and booted up his computer, the error disappeared. Ahmed and Josh also tried rebooting our computers and it worked. We were going to put this in the solved problems section, but was it *really* solved??????????
+- At this point (Sunday night), we still have no idea how to make custom queries to our backend (i.e. using psql filters, etc. such as JOIN and ANY()), meaning we need to run multiple calls and filter out the response in the frontend. It's ugly, but it works.
 
 ## Solved Problems
+- The tutorial we used for Firebase authentication (along with some other walk-throughs) used functional components, and we had no idea what was going on at first. We did a bunch of research and figured out how functional components work in general, along with some basic hooks (useState and useEffect have been particularly clutch)
+- We struggled with updating our models when we added/removed fields. Migrate wouldn't change anything, but it would still say the 'ghost' field is required, throwing an error. We realized that this was just a problem with us not understanding the workings of Django, and was eventually solved by adding the field to the model's serializer. 🤦‍♂️
+- Cloudinary would take too long to upload a photo and return the URL for us to set the state to post into our backend. Solved the problem by adding a useEffect() hook to listen for a change on state.image, which triggers the POST call to our backend.
 
 #### Reflection Section

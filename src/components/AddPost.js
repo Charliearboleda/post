@@ -34,7 +34,7 @@ export default function AddPost(props) {
                 formData
             ).then(
                 (response) => {
-                    console.log('image uploaded; setting state')
+                    console.log('image uploaded; setting state') // REMOVE BEFORE WEDNESDAY ==================
                     setState(
                         {
                             ...state,
