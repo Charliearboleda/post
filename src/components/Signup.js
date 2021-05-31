@@ -38,7 +38,6 @@ export default function Signup(props) {
                             text: ''
                         }
                     )
-                    props.getPosts()
                 }
             )
             .catch((err) => {
@@ -83,7 +82,6 @@ export default function Signup(props) {
                                 required
                             />
                         </Form.Group>
-                        {/* Add fields for displayName, tagLine; these only need to be submitted to our Django backend, and not firebase*/}
                         <Form.Group id="displayName">
                             <Form.Label>Display Name (not unique)</Form.Label>
                             <Form.Control
