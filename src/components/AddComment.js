@@ -1,16 +1,16 @@
 // DEPENDENCIES
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import axios from "axios"
 
 // CONTEXTS
-import { useAuth } from '../contexts/AuthContext'
+// import { useAuth } from '../contexts/AuthContext'
 
 export default function AddComment(props) {
-    const { currentUser } = useAuth()
+    // const { currentUser } = useAuth()
     const [ state, setState ] = useState(
         {
-            user: currentUser.id,
+            user: props.currentUser.id,
             post: props.postId,
             text: '',
         }
@@ -39,22 +39,30 @@ export default function AddComment(props) {
         // AXIOS END =====
     }
 
+    useEffect(() => {
+        setState(
+            {
+                ...state,
+                user: props.currentUser.id
+            }
+        )
+    }, [props])
+
     return (
-        <>
-            <Form onSubmit={ handleSubmit }>
+        <Form onSubmit={ handleSubmit }>
             <input
                 type="textarea"
                 value={ state.text }
                 name="text"
                 onChange={ handleChange }
+                required
             />
-             <Button
+            <Button
                 as="input"
                 variant="outline-info"
                 type="submit"
                 value="Add Comment"
             />
-            </Form>
-        </>
+        </Form>
     )
 }
