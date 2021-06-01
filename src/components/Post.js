@@ -6,6 +6,8 @@ import axios from 'axios'
 import EditPost from './EditPost'
 import CommentList from './CommentList'
 import AddComment from './AddComment'
+import { Button } from 'react-bootstrap'
+
 
 export default function Post(props) {
     const [state, setState] = useState(
@@ -49,10 +51,11 @@ export default function Post(props) {
                     getPosts={ props.getPosts }
                 ></EditPost>
             </details>
-            <button
+            <Button
+                variant="danger"
                 value={ props.post.id }
                 onClick={ props.deletePost }
-            >DELETE</button>
+            >DELETE</Button>
         </div>
     )
 }

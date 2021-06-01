@@ -1,0 +1,30 @@
+.body{
+    background-color: #F0D6BD;
+}
+
+.post-list {
+    background-color: #142664;
+    color: #FFFFFF;
+    margin-top: 10px;
+
+}
+
+img {
+    width: 300px;
+
+}
+.account {
+    background-color: #F0D6BD;
+    color: black;
+}
+
+#account-settings {
+
+    align-self: flex-end;
+}
+.main-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
