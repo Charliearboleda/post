@@ -11,7 +11,6 @@ import CommentList from './CommentList'
 import AddComment from './AddComment'
 import { Button } from 'react-bootstrap'
 
-
 export default function Post(props) {
     const { currentUser, allUsers, setAllUsers } = useAuth()
     const [state, setState] = useState(
@@ -38,9 +37,6 @@ export default function Post(props) {
         getComments()
     }, [])
 
-
-
-
     return (
         <div className="post" key={ props.post.id }>
             { props.allUsers.map(
@@ -58,6 +54,7 @@ export default function Post(props) {
             <CommentList
                 comments={state.comments}
                 postId={ props.post.id }
+                allUsers={ props.allUsers }
             ></CommentList>
             <AddComment
                 postId={ props.post.id }
