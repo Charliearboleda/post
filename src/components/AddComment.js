@@ -1,14 +1,20 @@
+// DEPENDENCIES
 import React, { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import axios from "axios"
 
+// CONTEXTS
+import { useAuth } from '../contexts/AuthContext'
 
 export default function AddComment(props) {
-    const [ state, setState ] = useState({
-        user: '',
-        post: '',
-        text: '',
-    })
+    const { currentUser } = useAuth()
+    const [ state, setState ] = useState(
+        {
+            user: currentUser.id,
+            post: props.postId,
+            text: '',
+        }
+    )
 
     const handleChange = (event) => {
         setState(
