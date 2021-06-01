@@ -10,9 +10,22 @@ export function useAuth() {
 }
 
 export function AuthProvider({children}) {
+    const [ allUsers, setAllUsers ] = useState([])
     const [ posts, setPosts ] = useState([])
-    const [ currentUser, setCurrentUser ] = useState()
+    const [ currentUser, setCurrentUser ] = useState({})
     const [ loading, setLoading ] = useState(true)
+
+    function getUsers() {
+        axios
+            .get(
+                'https://post-ga-api.herokuapp.com/api/users'
+            ).then(
+                (response) => {
+                    setAllUsers(response.data)
+                }
+            )
+
+    }
 
     function getPosts() {
         axios
@@ -78,6 +91,9 @@ export function AuthProvider({children}) {
     const value = {
         currentUser,
         setCurrentUser,
+        allUsers,
+        setAllUsers,
+        getUsers,
         login,
         logout,
         resetPassword,

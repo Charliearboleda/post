@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import { Card, Button, Alert } from 'react-bootstrap'
 import { Link, useHistory } from 'react-router-dom'
-
+import axios from 'axios'
 
 // CONTEXTS
 import { useAuth } from '../contexts/AuthContext'
@@ -12,13 +12,8 @@ import ProfileView from './ProfileView'
 
 export default function MainPage() {
     const [ error, setError ] = useState("")
-    const { currentUser, logout } = useAuth()
+    const { currentUser, setCurrentUser, allUsers, setAllUsers, getUsers, logout } = useAuth()
     const history = useHistory()
-    const [ state, setState ] = useState(
-        {
-            posts: []
-        }
-    )
 
     async function handleLogout() {
         setError("")
@@ -30,13 +25,31 @@ export default function MainPage() {
         }
     }
 
+    async function set() {
+        try {
+            await getUsers()
+            for (let i = 0; i < allUsers.length; i++) {
+                if (allUsers[i].email === currentUser.email) {
+                    setCurrentUser({
+                        ...currentUser,
+                        ...allUsers[i]
+                    })
+                    break
+                }
+            }
+        } catch {
+            setError('Could not set currentUser')
+        }
+    }
+
+    useEffect(() => {
+        set()
+    }, [])
 
     return (
         <div className="main-page-container">
-
             <details id="account-settings">
-
-                <summary>Account Settings</summary>
+                <summary className='setting'>Account Settings</summary>
                 <div className="account">
                 <Card>
                     <Card.Body>
@@ -56,9 +69,7 @@ export default function MainPage() {
                 </div>
                 </div>
             </details>
-
             <ProfileView></ProfileView>
-
             <Link
                 to="/add-post"
                 className="btn btn-primary w-50 mt-3"

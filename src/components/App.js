@@ -19,34 +19,48 @@ import UserPostPage from './UserPostPage'
 
 export default function App() {
     return (
-        <>
+        <AuthProvider>
             <div className="body">
                 <Container
                     className="d-flex align-itmes-center justify-content-center"
                     style={ {minHeight: "100vh"} }
                 > {/* CONTAINER */}
-                    <div
-                        className="w-100"
-                    >{/* DIV */}
+                    <div className="w-100">
                         <Router>
-                            <AuthProvider>
-                                <Switch>
-                                    <Route path="/signup" component={ Signup } />
-                                    <Route path="/login" component={ Login } />
-                                    <Route path="/forgot-password" component={ ForgotPassword } />
-                                    <PrivateRoute exact path='/user-post-page' component={UserPostPage} />
-                                    <PrivateRoute
-                                     exact path="/" component={ MainPage } />
-                                    <PrivateRoute exact path='/add-post' component={AddPost} />
-                                    <PrivateRoute path="/update-profile" component={ UpdateProfile } />
-                                </Switch>
-                            </AuthProvider>
-
+                            <Switch>
+                                <Route
+                                    path="/signup"
+                                    component={ Signup }
+                                ></Route>
+                                <Route
+                                    path="/login"
+                                    component={ Login }
+                                ></Route>
+                                <Route
+                                    path="/forgot-password"
+                                    component={ ForgotPassword }
+                                ></Route>
+                                <PrivateRoute
+                                    exact path='/user-post-page'
+                                    component={ UserPostPage }
+                                ></PrivateRoute>
+                                <PrivateRoute
+                                    exact path="/"
+                                    component={ MainPage }
+                                ></PrivateRoute>
+                                <PrivateRoute exact path='/add-post'
+                                    component={ AddPost }
+                                ></PrivateRoute>
+                                <PrivateRoute
+                                    path="/update-profile"
+                                    component={ UpdateProfile }
+                                ></PrivateRoute>
+                            </Switch>
                         </Router>
                     </div>
                 </Container>
             </div>
-        </>
+        </AuthProvider>
     )
 
 } // App END =======

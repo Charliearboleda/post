@@ -9,9 +9,13 @@ export default function CommentList(props) {
         <>
             <p>This is the comment list</p>
             {props.comments.map((comment) => {
-                <Comment
-                    comment={comment}
-                />
+                return props.postId === comment.post
+                    ? <Comment
+                        comment={ comment }
+                        key={ comment.id }
+                        allUsers={ props.allUsers }
+                    ></Comment>
+                    : null
             })}
         </>
     )

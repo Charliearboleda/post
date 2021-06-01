@@ -21,24 +21,10 @@ export default function Login() {
             setError('')
             setLoading(true)
             await login(emailRef.current.value, passwordRef.current.value)
-            const currentUserEmail = currentUser.email
-            axios
-                .get('https://post-ga-api.herokuapp.com/api/users')
-                .then((users) => {
-                    for (let i = 0; i < users.data.length; i++) {
-                        if (users.data[i].email === currentUserEmail) {
-                            setCurrentUser({
-                                ...currentUser,
-                                ...users.data[i]
-                            })
-                            break
-                        }
-                    }
-                })
-            history.push('/')
         } catch {
             setError('Failed to log in. Please try again')
         }
+        history.push('/')
         setLoading(false)
     } // handleSubmit END =====
 
