@@ -30,28 +30,38 @@ export default function AddPost(props) {
 
     const uploadImage = (event) => {
         event.preventDefault()
-        const formData = new FormData()
-        formData.append("file", imageSelected)
-        formData.append("upload_preset", "vutyx5hg")
-        console.log('uploading image') // REMOVE BEFORE WEDNESDAY ==================
-        axios // AXIOS (CLOUDINARY) START =====
-            .post(
-                "https://api.cloudinary.com/v1_1/aocloud/image/upload",
-                formData
-            ).then(
-                (response) => {
-                    console.log('image uploaded; setting state') // REMOVE BEFORE WEDNESDAY ==================
-                    setState(
-                        {
-                            ...state,
-                            image: response.data.secure_url
-                        }
-                    )
-                    return response.data.secure_url
+        if (imageSelected !== "") {
+            const formData = new FormData()
+            formData.append("file", imageSelected)
+            formData.append("upload_preset", "vutyx5hg")
+            console.log('uploading image') // REMOVE BEFORE WEDNESDAY ==================
+            axios // AXIOS (CLOUDINARY) START =====
+                .post(
+                    "https://api.cloudinary.com/v1_1/aocloud/image/upload",
+                    formData
+                ).then(
+                    (response) => {
+                        console.log('image uploaded; setting state') // REMOVE BEFORE WEDNESDAY ==================
+                        setState(
+                            {
+                                ...state,
+                                image: response.data.secure_url
+                            }
+                        )
+                        return response.data.secure_url
+                    }
+                )
+            // history.push('/')
+            // AXIOS (CLOUDINARY) END =====
+        }
+        if (imageSelected === "") {
+            setState(
+                {
+                    ...state,
+                    image: ' '
                 }
             )
-        // history.push('/')
-        // AXIOS (CLOUDINARY) END =====
+        }
     }
 
     const postPost = () => {
@@ -95,7 +105,6 @@ export default function AddPost(props) {
     // JOSH'S SLEEP IDEA #2
     useEffect(() => {
         if (state.image !== '') {
-            console.log("useEffect() triggered!")
             postPost()
         }
     }, [state.image])

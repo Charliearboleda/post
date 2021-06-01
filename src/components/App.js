@@ -27,7 +27,6 @@ export default function App() {
                 > {/* CONTAINER */}
                     <div
                         className="w-100"
-                        style={ {maxWidth: "400px"} }
                     >{/* DIV */}
                         <Router>
                             <AuthProvider>
