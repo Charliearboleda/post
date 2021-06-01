@@ -58,6 +58,8 @@
 ## Unsolved Problems
 - Firebase was throwing an `invalid API key` error and we had absolutely 0 idea as to what could be wrong. We double and triple checked the API key, how we were calling the API key, how we were calling the API with the API key, and everything was right, but it still wasn't working. By chance, Charlie turned off his computer for the first time in forever on a whim when attending a family function, and when he came back and booted up his computer, the error disappeared. Ahmed and Josh also tried rebooting our computers and it worked. We were going to put this in the solved problems section, but was it *really* solved??????????
 - At this point (Sunday night), we still have no idea how to make custom queries to our backend (i.e. using psql filters, etc. such as `JOIN` and `ANY()`), meaning we need to run multiple calls and filter out the response in the frontend. It's ugly, but it works.
+- React Bootstrap is weird.
+- Started getting used to using Context, but the components don't rerender when state is set to something from context, even if that 'something' does update.
 
 ## Solved Problems
 - The tutorial we used for Firebase authentication (along with some other walk-throughs) used functional components, and we had no idea what was going on at first. We did a bunch of research and figured out how functional components work in general, along with some basic hooks (`useState()` and `useEffect()` have been particularly clutch)
