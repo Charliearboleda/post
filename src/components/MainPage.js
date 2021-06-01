@@ -12,7 +12,7 @@ import ProfileView from './ProfileView'
 
 export default function MainPage() {
     const [ error, setError ] = useState("")
-    const { currentUser, setCurrentUser, logout } = useAuth()
+    const { currentUser, setCurrentUser, allUsers, setAllUsers, logout } = useAuth()
     const history = useHistory()
     const [ state, setState ] = useState(
         {
@@ -31,22 +31,23 @@ export default function MainPage() {
     }
 
     useEffect(() => {
-        axios
-            .get('https://post-ga-api.herokuapp.com/api/users')
-            .then((users) => {
-                for (let i = 0; i < users.data.length; i++) {
-                    if (users.data[i].email === currentUser.email) {
+        const set = async () => {
+            try {
+                await setAllUsers()
+                for (let i = 0; i < allUsers.length; i++) {
+                    if (allUsers[i].email === currentUser.email) {
                         setCurrentUser({
                             ...currentUser,
-                            ...users.data[i]
+                            ...allUsers[i]
                         })
                         break
                     }
                 }
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+            } catch {
+                setError('Could not set currentUser')
+            }
+        }
+        set()
     }, [])
 
     return (

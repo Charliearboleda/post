@@ -51,6 +51,7 @@ export default function Post(props) {
             <AddComment
                 postId={ props.post.id }
                 getComments={ getComments }
+                currentUser={ currentUser }
             ></AddComment>
             {props.post.user === currentUser.id
                 ? <details id="edit-post-dropdown">
