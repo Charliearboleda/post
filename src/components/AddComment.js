@@ -19,14 +19,6 @@ export default function AddComment(props) {
         )
     }
 
-    // const addComment = (e) => {
-    //     e.preventDefault()
-    //     axios
-    //     .post()
-    //     .then()
-    //     .
-    // }
-
     const handleSubmit = (e) => {
         e.preventDefault()
         axios
@@ -35,7 +27,7 @@ export default function AddComment(props) {
                 state
             ).then(
                 (response) => {
-                    props.getPosts()
+                    props.getComments()
                 }
             )
         // AXIOS END =====
