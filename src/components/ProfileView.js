@@ -5,6 +5,7 @@ import axios from 'axios'
 // COMPONENTS
 import PostList from './PostList'
 
+
 export default function ProfileView() {
     const [ state, setState ] = useState(
         {
@@ -62,6 +63,7 @@ export default function ProfileView() {
                 handleChange={ handleChange }
                 deletePost={ deletePost }
             ></PostList>
+
         </>
     )
 }

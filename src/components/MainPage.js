@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import { Card, Button, Alert } from 'react-bootstrap'
 import { Link, useHistory } from 'react-router-dom'
-
+import axios from 'axios'
 
 // CONTEXTS
 import { useAuth } from '../contexts/AuthContext'
@@ -12,7 +12,7 @@ import ProfileView from './ProfileView'
 
 export default function MainPage() {
     const [ error, setError ] = useState("")
-    const { currentUser, logout } = useAuth()
+    const { currentUser, setCurrentUser, logout } = useAuth()
     const history = useHistory()
     const [ state, setState ] = useState(
         {
@@ -30,13 +30,31 @@ export default function MainPage() {
         }
     }
 
+    useEffect(() => {
+        axios
+            .get('https://post-ga-api.herokuapp.com/api/users')
+            .then((users) => {
+                for (let i = 0; i < users.data.length; i++) {
+                    if (users.data[i].email === currentUser.email) {
+                        setCurrentUser({
+                            ...currentUser,
+                            ...users.data[i]
+                        })
+                        break
+                    }
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }, [])
 
     return (
         <div className="main-page-container">
 
             <details id="account-settings">
 
-                <summary>Account Settings</summary>
+                <summary className='setting'>Account Settings</summary>
                 <div className="account">
                 <Card>
                     <Card.Body>
