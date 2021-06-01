@@ -1,12 +1,14 @@
 // DEPENDENCIES
 import React, { useState } from 'react'
+import { Button } from 'react-bootstrap'
 import axios from 'axios'
 import { useAuth } from '../contexts/AuthContext'
+
 
 export default function EditPost(props) {
     const [ state, setState ] = useState(
         {
-            author: props.post.author,
+            user: props.post.user,
             image: props.post.image,
             text: props.post.text,
             liked_by: props.post.liked_by,
@@ -28,11 +30,12 @@ export default function EditPost(props) {
         event.preventDefault()
         axios
             .put(
-                'https://post-ga-api.herokuapp.com/api/posts' + props.post.id,
+                'https://post-ga-api.herokuapp.com/api/posts/' + props.post.id,
                 state
             ).then(
                 (response) => {
-                    getPosts()
+                    props.getPosts()
+                    document.getElementById('edit-' + event.target.name).reset()
                 }
             )
         // AXIOS END =====
@@ -41,15 +44,9 @@ export default function EditPost(props) {
     return (
         <form
             name={ props.post.id }
-            className="edit-post-form"
+            id={"edit-" + props.post.id}
             onSubmit={ updatePost }
         >
-            <label htmlFor="author">Author</label><br />
-            <input
-                type="number"
-                name="author"
-                onChange={ handleChange }
-            /><br />
             <label htmlFor="image">Image</label><br />
             <input
                 type="text"
@@ -62,7 +59,12 @@ export default function EditPost(props) {
                 name="text"
                 onChange={ handleChange }
             /><br />
-            <input type="submit" value="Update Post" />
+            <Button
+                as="input"
+                className="update-post-btn"
+                type="submit"
+                value="Update"
+            />
         </form>
     )
 }

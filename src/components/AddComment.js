@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Form } from 'react-bootstrap'
+import { Form, Button } from 'react-bootstrap'
 import axios from "axios"
 
 
@@ -42,9 +42,11 @@ export default function AddComment(props) {
                 name="text"
                 onChange={ handleChange }
             />
-             <input
+             <Button
+                as="input"
+                variant="outline-info"
                 type="submit"
-                value={ "Add Comment" }
+                value="Add Comment"
             />
             </Form>
         </>
