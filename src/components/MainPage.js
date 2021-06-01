@@ -36,7 +36,7 @@ export default function MainPage() {
 
             <details id="account-settings">
 
-                <summary>Account Settings</summary>
+                <summary className='setting'>Account Settings</summary>
                 <div className="account">
                 <Card>
                     <Card.Body>
