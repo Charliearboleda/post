@@ -31,9 +31,12 @@ export default function MainPage() {
 
 
     return (
-        <>
-            <details>
+        <div className="main-page-container">
+
+            <details id="account-settings">
+
                 <summary>Account Settings</summary>
+                <div className="account">
                 <Card>
                     <Card.Body>
                         { error && <Alert variant="danger">{error}</Alert> }
@@ -50,14 +53,16 @@ export default function MainPage() {
                         onClick={handleLogout}
                     >Log Out</Button>
                 </div>
+                </div>
             </details>
-            <Link
-                to="/add-post"
-                className="btn btn-primary w-50 mt-3"
-            >Create New Post</Link>
+
             <ProfileView></ProfileView>
 
-        </>
+            <Link
+                to="/add-post"
+                className="btn btn-primary w-52 mt-3"
+            >Create New Post</Link>
+        </div>
 
     )
 }
