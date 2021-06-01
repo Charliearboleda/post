@@ -2,6 +2,9 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
+// CONTEXTS
+import { useAuth } from '../contexts/AuthContext'
+
 // COMPONENTS
 import EditPost from './EditPost'
 import CommentList from './CommentList'
@@ -15,6 +18,7 @@ export default function Post(props) {
             comments: []
         }
     )
+    const { currentUser } = useAuth()
 
     const getComments = () => {
         axios
@@ -47,19 +51,22 @@ export default function Post(props) {
                 postId={ props.post.id }
                 getComments={ getComments }
             ></AddComment>
-            <details id="edit-post-dropdown">
-                <summary>Edit Post</summary>
-                <EditPost
-                    post={ props.post }
-                    getPosts={ props.getPosts }
-                ></EditPost>
-                <Button
-                    variant="danger"
-                    className="delete-btn"
-                    value={ props.post.id }
-                    onClick={ props.deletePost }
-                >Delete</Button>
-            </details>
+            {props.post.user === currentUser.id
+                ? <details id="edit-post-dropdown">
+                    <summary>Edit Post</summary>
+                    <EditPost
+                        post={ props.post }
+                        getPosts={ props.getPosts }
+                    ></EditPost>
+                    <Button
+                        variant="danger"
+                        className="delete-btn"
+                        value={ props.post.id }
+                        onClick={ props.deletePost }
+                    >Delete</Button>
+                </details>
+                : null
+            }
         </div>
     )
 }
