@@ -1,15 +1,47 @@
+// DEPENDENCIES
 import React, { useContext, useState, useEffect } from 'react'
+import axios from 'axios'
 import { auth } from '../firebase'
-
 const AuthContext = React.createContext()
+
 
 export function useAuth() {
   return useContext(AuthContext)
 }
 
 export function AuthProvider({children}) {
+    const [ posts, setPosts ] = useState([])
     const [ currentUser, setCurrentUser ] = useState()
     const [ loading, setLoading ] = useState(true)
+
+    function getPosts() {
+        axios
+            .get(
+                'https://post-ga-api.herokuapp.com/api/posts'
+            ).then(
+                (response) => {
+                    setPosts(
+                        {
+                            posts: response.data
+                        }
+                    )
+                },
+                (err) => console.log(err)
+            )
+        // AXIOS END =====
+    }
+
+    function deletePost(event) {
+        axios
+            .delete(
+                'https://post-ga-api.herokuapp.com/api/posts/' + event.target.value
+            ).then(
+                (response) => {
+                    getPosts()
+                }
+            )
+        // AXIOS END =====
+    }
 
     function signup(email, password) {
         return auth.createUserWithEmailAndPassword(email, password)
@@ -51,7 +83,11 @@ export function AuthProvider({children}) {
         resetPassword,
         updateEmail,
         updatePassword,
-        signup
+        signup,
+        posts,
+        setPosts,
+        getPosts,
+        deletePost
     }
 
     return (

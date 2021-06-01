@@ -1,6 +1,7 @@
 // DEPENDENCIES
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useHistory, Link } from 'react-router-dom'
 // import { Image } from 'cloudinary-react'
 
 // CONTEXTS
@@ -8,6 +9,7 @@ import { useAuth } from '../contexts/AuthContext'
 
 export default function AddPost(props) {
     const [ imageSelected, setImageSelected ] = useState("")
+    const history = useHistory()
     const [ state, setState ] = useState(
         {
             user: '',
@@ -15,6 +17,7 @@ export default function AddPost(props) {
             text: ''
         }
     )
+    const { currentUser, setPosts, getPosts } = useAuth()
 
     const handleChange = (event) => {
         setState(
@@ -27,27 +30,38 @@ export default function AddPost(props) {
 
     const uploadImage = (event) => {
         event.preventDefault()
-        const formData = new FormData()
-        formData.append("file", imageSelected)
-        formData.append("upload_preset", "vutyx5hg")
-        console.log('uploading image') // REMOVE BEFORE WEDNESDAY ==================
-        axios // AXIOS (CLOUDINARY) START =====
-            .post(
-                "https://api.cloudinary.com/v1_1/aocloud/image/upload",
-                formData
-            ).then(
-                (response) => {
-                    console.log('image uploaded; setting state') // REMOVE BEFORE WEDNESDAY ==================
-                    setState(
-                        {
-                            ...state,
-                            image: response.data.secure_url
-                        }
-                    )
-                    return response.data.secure_url
+        if (imageSelected !== "") {
+            const formData = new FormData()
+            formData.append("file", imageSelected)
+            formData.append("upload_preset", "vutyx5hg")
+            console.log('uploading image') // REMOVE BEFORE WEDNESDAY ==================
+            axios // AXIOS (CLOUDINARY) START =====
+                .post(
+                    "https://api.cloudinary.com/v1_1/aocloud/image/upload",
+                    formData
+                ).then(
+                    (response) => {
+                        console.log('image uploaded; setting state') // REMOVE BEFORE WEDNESDAY ==================
+                        setState(
+                            {
+                                ...state,
+                                image: response.data.secure_url
+                            }
+                        )
+                        return response.data.secure_url
+                    }
+                )
+            // history.push('/')
+            // AXIOS (CLOUDINARY) END =====
+        }
+        if (imageSelected === "") {
+            setState(
+                {
+                    ...state,
+                    image: ' '
                 }
             )
-        // AXIOS (CLOUDINARY) END =====
+        }
     }
 
     const postPost = () => {
@@ -65,7 +79,8 @@ export default function AddPost(props) {
                             text: ''
                         }
                     )
-                    props.getPosts()
+                    getPosts()
+                    history.push('/')
                 }
             )
             .catch((err) => {
@@ -122,6 +137,10 @@ export default function AddPost(props) {
                 /><br /><br />
                 <input type="submit" value="Post-It" />
             </form>
+            <Link
+                to="/"
+                className="btn btn-primary w-50 mt-3"
+            >Cancel</Link>
         </div>
     )
 }

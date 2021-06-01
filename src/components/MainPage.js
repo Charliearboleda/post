@@ -1,7 +1,8 @@
 // DEPENDENCIES
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Card, Button, Alert } from 'react-bootstrap'
 import { Link, useHistory } from 'react-router-dom'
+
 
 // CONTEXTS
 import { useAuth } from '../contexts/AuthContext'
@@ -13,6 +14,11 @@ export default function MainPage() {
     const [ error, setError ] = useState("")
     const { currentUser, logout } = useAuth()
     const history = useHistory()
+    const [ state, setState ] = useState(
+        {
+            posts: []
+        }
+    )
 
     async function handleLogout() {
         setError("")
@@ -24,10 +30,14 @@ export default function MainPage() {
         }
     }
 
+
     return (
-        <>
-            <details>
+        <div className="main-page-container">
+
+            <details id="account-settings">
+
                 <summary>Account Settings</summary>
+                <div className="account">
                 <Card>
                     <Card.Body>
                         { error && <Alert variant="danger">{error}</Alert> }
@@ -44,9 +54,16 @@ export default function MainPage() {
                         onClick={handleLogout}
                     >Log Out</Button>
                 </div>
+                </div>
             </details>
+
             <ProfileView></ProfileView>
-        </>
+
+            <Link
+                to="/add-post"
+                className="btn btn-primary w-50 mt-3"
+            >Create New Post</Link>
+        </div>
 
     )
 }
