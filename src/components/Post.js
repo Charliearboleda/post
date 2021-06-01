@@ -46,6 +46,7 @@ export default function Post(props) {
             <h5>{ props.post.text }</h5>
             <CommentList
                 comments={state.comments}
+                postId={ props.post.id }
             ></CommentList>
             <AddComment
                 postId={ props.post.id }

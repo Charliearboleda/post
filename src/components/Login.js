@@ -21,7 +21,6 @@ export default function Login() {
             setError('')
             setLoading(true)
             await login(emailRef.current.value, passwordRef.current.value)
-            // const currentUserEmail = currentUser.email
         } catch {
             setError('Failed to log in. Please try again')
         }

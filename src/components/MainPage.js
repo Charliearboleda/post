@@ -51,9 +51,7 @@ export default function MainPage() {
 
     return (
         <div className="main-page-container">
-
             <details id="account-settings">
-
                 <summary className='setting'>Account Settings</summary>
                 <div className="account">
                 <Card>
@@ -74,9 +72,7 @@ export default function MainPage() {
                 </div>
                 </div>
             </details>
-
             <ProfileView></ProfileView>
-
             <Link
                 to="/add-post"
                 className="btn btn-primary w-50 mt-3"

@@ -40,21 +40,20 @@ export default function AddComment(props) {
     }
 
     return (
-        <>
-            <Form onSubmit={ handleSubmit }>
+        <Form onSubmit={ handleSubmit }>
             <input
                 type="textarea"
                 value={ state.text }
                 name="text"
                 onChange={ handleChange }
+                required
             />
-             <Button
+            <Button
                 as="input"
                 variant="outline-info"
                 type="submit"
                 value="Add Comment"
             />
-            </Form>
-        </>
+        </Form>
     )
 }
