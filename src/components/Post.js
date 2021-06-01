@@ -13,12 +13,13 @@ import { Button } from 'react-bootstrap'
 
 
 export default function Post(props) {
+    const { currentUser, allUsers, setAllUsers } = useAuth()
     const [state, setState] = useState(
         {
-            comments: []
+            comments: [],
+            allUsers: allUsers
         }
     )
-    const { currentUser } = useAuth()
 
     const getComments = () => {
         axios
@@ -26,6 +27,7 @@ export default function Post(props) {
             .then((response) => {
                 setState(
                     {
+                        ...state,
                         comments: response.data
                     }
                 )
@@ -36,9 +38,18 @@ export default function Post(props) {
         getComments()
     }, [])
 
+
+
+
     return (
         <div className="post" key={ props.post.id }>
-            <h3>Author: { props.post.user }</h3>
+            { props.allUsers.map(
+                (user) => {
+                    return user.id === props.post.user
+                        ? <h3 key={ user.id }>{user.displayName}</h3>
+                        : null
+                }
+            )}
             {props.post.image !== ""
                 ? <img src={ props.post.image } alt={ props.post.text } />
                 : null
