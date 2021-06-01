@@ -12,13 +12,8 @@ import ProfileView from './ProfileView'
 
 export default function MainPage() {
     const [ error, setError ] = useState("")
-    const { currentUser, setCurrentUser, allUsers, setAllUsers, logout } = useAuth()
+    const { currentUser, setCurrentUser, allUsers, setAllUsers, getUsers, logout } = useAuth()
     const history = useHistory()
-    const [ state, setState ] = useState(
-        {
-            posts: []
-        }
-    )
 
     async function handleLogout() {
         setError("")
@@ -30,23 +25,24 @@ export default function MainPage() {
         }
     }
 
-    useEffect(() => {
-        const set = async () => {
-            try {
-                await setAllUsers()
-                for (let i = 0; i < allUsers.length; i++) {
-                    if (allUsers[i].email === currentUser.email) {
-                        setCurrentUser({
-                            ...currentUser,
-                            ...allUsers[i]
-                        })
-                        break
-                    }
+    async function set() {
+        try {
+            await getUsers()
+            for (let i = 0; i < allUsers.length; i++) {
+                if (allUsers[i].email === currentUser.email) {
+                    setCurrentUser({
+                        ...currentUser,
+                        ...allUsers[i]
+                    })
+                    break
                 }
-            } catch {
-                setError('Could not set currentUser')
             }
+        } catch {
+            setError('Could not set currentUser')
         }
+    }
+
+    useEffect(() => {
         set()
     }, [])
 

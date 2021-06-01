@@ -93,6 +93,7 @@ export function AuthProvider({children}) {
         setCurrentUser,
         allUsers,
         setAllUsers,
+        getUsers,
         login,
         logout,
         resetPassword,
