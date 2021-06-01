@@ -13,6 +13,7 @@ export default function CommentList(props) {
                     ? <Comment
                         comment={ comment }
                         key={ comment.id }
+                        allUsers={ props.allUsers }
                     ></Comment>
                     : null
             })}
