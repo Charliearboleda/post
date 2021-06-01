@@ -20,18 +20,6 @@ export default function ProfileView() {
         )
     }
 
-    const deletePost = (e) => {
-        axios
-            .delete(
-                'https://post-ga-api.herokuapp.com/api/posts' + e.target.value
-            ).then(
-                (response) => {
-                    getPosts()
-                }
-            )
-        // AXIOS END =====
-    }
-
     const getPosts = () => {
         axios
             .get(
@@ -50,6 +38,18 @@ export default function ProfileView() {
         // AXIOS END =====
     }
 
+    function deletePost(event) {
+        axios
+            .delete(
+                'https://post-ga-api.herokuapp.com/api/posts/' + event.target.value
+            ).then(
+                (response) => {
+                    getPosts()
+                }
+            )
+        // AXIOS END =====
+    }
+
     useEffect(() => {
         getPosts()
     }, [])
@@ -57,10 +57,10 @@ export default function ProfileView() {
     return (
         <>
             <PostList
-                posts={ state.posts }
+                posts={state.posts}
                 getPosts={ getPosts } // THIS GETS DRILLED 4 LEVELS DOWN TO EDIT POST; CONVERT TO USING CONTEXT?
-                deletePost={ deletePost }
                 handleChange={ handleChange }
+                deletePost={ deletePost }
             ></PostList>
         </>
     )

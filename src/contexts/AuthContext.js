@@ -31,6 +31,18 @@ export function AuthProvider({children}) {
         // AXIOS END =====
     }
 
+    function deletePost(event) {
+        axios
+            .delete(
+                'https://post-ga-api.herokuapp.com/api/posts/' + event.target.value
+            ).then(
+                (response) => {
+                    getPosts()
+                }
+            )
+        // AXIOS END =====
+    }
+
     function signup(email, password) {
         return auth.createUserWithEmailAndPassword(email, password)
     }
@@ -74,7 +86,8 @@ export function AuthProvider({children}) {
         signup,
         posts,
         setPosts,
-        getPosts
+        getPosts,
+        deletePost
     }
 
     return (
