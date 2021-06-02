@@ -12,6 +12,7 @@ export default function PostList(props) {
 
     return (
         <div className="post-list" >
+            <a href="/" className="home-link">Post</a>
             {props.posts.map(
                 (post) => {
                     return (

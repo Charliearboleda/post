@@ -7,7 +7,7 @@ import Comment from './Comment'
 export default function CommentList(props) {
     return (
         <>
-            <p>This is the comment list</p>
+            {/* <p>This is the comment list</p> */}
             {props.comments.map((comment) => {
                 return props.postId === comment.post
                     ? <Comment
