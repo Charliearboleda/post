@@ -6,7 +6,7 @@ export default function Comment(props) {
             { props.allUsers.map(
                 (user) => {
                     return user.id === props.comment.user
-                        ? <p>{user.displayName}</p>
+                        ? <p key={ user.id }>{user.displayName}</p>
                         : null
                 }
             )}
