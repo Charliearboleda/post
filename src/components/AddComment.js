@@ -49,7 +49,7 @@ export default function AddComment(props) {
     }, [props])
 
     return (
-        <Form onSubmit={ handleSubmit }>
+        <Form className="add-comment" onSubmit={ handleSubmit }>
             <input
                 type="textarea"
                 value={ state.text }
